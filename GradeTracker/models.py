@@ -17,12 +17,12 @@ class Course(models.Model):
 		return   self.student.fName + '-' + self.course_name
 
 class Graded_Activities(models.Model):
-	student = models.ForeignKey('student')
+	course = models.ForeignKey('Course')
 	activity_name = models.CharField(max_length=200)
 	#set grade_weight minimum and maximum from 0-100% represented as 0-1
 	grade_weight = models.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
 	def __str__(self):
-		return self.student.fName + '-' + self.activity_name + ':' + str(self.grade_weight)
+		return self.course.student.fName + '-' + self.activity_name + ':' + str(self.grade_weight)
 
 class SubGraded_Activities(models.Model):
 	main_category = models.ForeignKey('Graded_Activities')
@@ -33,11 +33,7 @@ class SubGraded_Activities(models.Model):
 		'     ' + self.subactivity_name + ':' + str(self.subgrade_weight))
 
 class Templates(models.Model):
-        course = models.ForeignKey('Course')
-	graded_activities = models.ForeignKey('Graded_Activities')
-	#need to import all activity names and activity weights assocatied with a particular course
-	
-        institution = models.CharField(max_length=200)
-        def __str__(self):
-                return (self.course.course_name  + " : " + self.Institution)
-		
+	course = models.ForeignKey('Course')
+	institution = models.CharField(max_length=200)
+	def __str__(self):
+		return (self.course.course_name + " : " + self.institution)
