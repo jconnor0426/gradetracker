@@ -1,0 +1,12 @@
+<h1>{{ student.fName}}</h1>
+<h2>{{ course.course_name }} </h2>
+<ul>
+{% for grade in course.graded_activities_set.all %}
+    <li>{{ grade.activity_name }}: is worth {{ grade.grade_weight }} </li>
+{% endfor %}
+</ul>
+<form action="/GT/{{ student.id }}/{{ course.id }}/" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+

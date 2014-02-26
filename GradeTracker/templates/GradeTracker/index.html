@@ -1,0 +1,17 @@
+{% extends "GradeTracker/basepage.html" %}
+
+ 
+{% block content %}
+{% if student_list%}
+   {% load staticfiles %} <!-- This loads the static keyword -->
+   <link rel="stylesheet" type="text/css" href="{% static 'GradeTracker/style.css' %}" />
+   <ul>
+    {% for student in student_list %}
+        <li><a href="/GT/{{ student.id }}/" > {{student.fName}} {{student.lName}} </a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No students are available.</p>
+{% endif %}
+
+{% endblock %}
