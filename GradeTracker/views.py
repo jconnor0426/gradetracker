@@ -37,3 +37,15 @@ def main(request):
     student_list = Student.objects.all()
     context = {'student_list': student_list }
     return render (request, 'GradeTracker/main.html', context)
+
+def deleteCourse( request, course_id ):
+    course = get_object_or_404( Course, pk=course_id )
+    studentReturned = course.student.id
+    course.delete()
+    return HttpResponseRedirect( '/GT/' + str(studentReturned ) )
+
+def test(request, student_id):
+    course_list = Course.objects.filter(student=student_id)
+    context = {'course_list' : course_list}
+    return render(request, 'GradeTracker/examples.html', context)
+    
