@@ -1,8 +1,11 @@
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
+from django.contrib import auth
+from django.core.context_processors import csrf
+#cross-site request forgery --> method for people hacking into website
 from GradeTracker.models import Student, Course, Graded_Activities, SubGraded_Activities, Templates
-from GradeTracker.forms import courseAdd, activityAdd
+from GradeTracker.forms import courseAdd, activityAdd, MyRegistrationForm
 
 def detail(request, student_id):
     student = get_object_or_404(Student, pk=student_id)
@@ -49,3 +52,48 @@ def test(request, student_id):
     context = {'course_list' : course_list}
     return render(request, 'GradeTracker/examples.html', context)
     
+def login(request):
+    c = {}
+    c.update(csrf(request))
+    return render(request, 'GradeTracker/login.html', c) 
+
+def auth_view(request):
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    #says user exists
+    user = auth.authenticate(username=username, password=password)
+    
+    if user is not None:
+        #signifies user is logged in
+        auth.login(request, user)
+        return HttpResponseRedirect('/GT/accounts/loggedin')
+    else:
+        return HttpResponseRedirect('/GT/accounts/invalid')        
+
+def loggedin(request):
+    return render(request, 'GradeTracker/loggedin.html', {'full_name': request.user.username})
+
+def invalid_login(request):
+    return render(request, 'GradeTracker/invalid_login.html')
+
+def logout(request):
+    auth.logout(request)
+    return render(request, 'GradeTracker/logout.html')
+
+def register_user(request):
+    if request.method == 'POST':
+        form = MyRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/GT/accounts/register_success')
+    else:
+        form = MyRegistrationForm()
+
+    args = {}
+    args.update(csrf(request))
+    args['form'] = form        
+
+    return render(request, 'GradeTracker/register.html', args)
+
+def register_success(request):
+    return render(request, 'GradeTracker/register_success.html')

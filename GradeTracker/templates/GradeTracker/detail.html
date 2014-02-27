@@ -3,10 +3,15 @@
 <h1>{{ student.fName }}</h1>
 <table>
 {% for course in student.course_set.all %}
-    <tr>
-        <td><a href="/GT/{{ student.id }}/{{ course.id }}/" > {{ course.course_name }} </a></td>
-	<td><a href="/GT/deleteCourse/{{ course.id }}/" > DELETE </a></td>
-    </tr>
+   <div>
+        <h1><a href="/GT/{{ student.id }}/{{ course.id }}/" > {{ course.course_name }} </a></h1>
+	<div id="accordian" >
+		<h3>delete course </h3>
+		<div><a href="/GT/deleteCourse/{{ course.id }}/" > DELETE </a><div>
+		<h3> test 2 </h3 >
+		<div> testing </div>
+	</div>
+    </div>
 {% endfor %}
 </table>
 <form action="/GT/{{ student.id }}/" method="post">{% csrf_token %}
