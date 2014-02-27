@@ -1,19 +1,17 @@
 {% extends "GradeTracker/basepage.html" %}
 {% block content %}
 <h1>{{ student.fName }}</h1>
-<table>
+<div id="accordion" >
 {% for course in student.course_set.all %}
+   <h3><a href="/GT/{{ student.id }}/{{ course.id }}/" > {{ course.course_name }} </a></h3>
    <div>
-        <h1><a href="/GT/{{ student.id }}/{{ course.id }}/" > {{ course.course_name }} </a></h1>
-	<div id="accordian" >
+	<div >
 		<h3>delete course </h3>
-		<div><a href="/GT/deleteCourse/{{ course.id }}/" > DELETE </a><div>
-		<h3> test 2 </h3 >
-		<div> testing </div>
+		<div><a href="/GT/deleteCourse/{{ course.id }}/" > DELETE </a></div>
 	</div>
     </div>
 {% endfor %}
-</table>
+</div>
 <form action="/GT/{{ student.id }}/" method="post">{% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Submit" />

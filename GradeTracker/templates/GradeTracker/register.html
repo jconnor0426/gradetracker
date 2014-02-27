@@ -1,0 +1,13 @@
+{% extends 'GradeTracker/basepage.html' %}
+
+{% block content %}
+
+	<h2>Register</h2>
+	<form action="/GT/accounts/register/" method="post">{% csrf_token %}
+	{{ form }}
+
+	<input type="submit" value="Register" />
+
+	</form>
+
+{% endblock %}
