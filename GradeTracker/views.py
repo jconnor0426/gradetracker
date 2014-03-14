@@ -46,10 +46,10 @@ def login(request):
 def loggedin(request):
     student_list = Student.objects.filter(user=request.user)
     #What Happens when a student hasn't been created yet?
-    if student_list:
-        return HttpResponseRedirect('/GT/' + str(student_list[0].id) + '/')
-    else:
-        return render(request, 'GradeTracker/loggedin.html', {'full_name': request.user.username, 'student_list' : student_list})
+    #if student_list:
+    return HttpResponseRedirect('/GT/' + str(student_list[0].id) + '/')
+    #else:
+     #   return render(request, 'GradeTracker/loggedin.html', {'full_name': request.user.username, 'student_list' : student_list})
 
 def invalid_login(request):
     return render(request, 'GradeTracker/invalid_login.html')
@@ -63,7 +63,10 @@ def register_user(request):
     if request.method == 'POST':
         form = MyRegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_user = form.save()
+            #Create a new student with a link to the user
+            new_student = Student( user=new_user, fName=new_user.first_name, lName=new_user.last_name, Institution=new_user.institution )  
+            new_student.save()
             return HttpResponseRedirect('/GT/accounts/register_success')
     else:
         form = MyRegistrationForm()
