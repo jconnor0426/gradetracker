@@ -1,11 +1,14 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm 
+from GradeTracker.models import Course
+from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-class courseAdd(forms.Form):
-    courseName = forms.CharField(max_length=200)
-    courseCode = forms.CharField( max_length=200)
+class courseAdd(ModelForm):
+    class Meta:
+        model = Course
+        exclude = ('student', )
 
 class activityAdd(forms.Form):
     activityName = forms.CharField(max_length=200)

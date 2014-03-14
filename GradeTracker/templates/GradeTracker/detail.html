@@ -14,19 +14,26 @@
 {% for course in student.course_set.all %}
    <h3><a href="/GT/{{ student.id }}/{{ course.id }}/"> {{ course.course_name }} </a></h3>
    <div>
-	<div>
-		<h3>add activities</h3>
-		<a href="/GT/{{ student.id }}/{{ course.id }}/">ADD</a>
-	</div>
-	<div>
-		<h3>delete course </h3>
-		<div><a href="/GT/deleteCourse/{{ course.id }}/" > DELETE </a></div>
-	</div>
+   	<ul>
+	<li>
+		<a href="/GT/{{ student.id }}/{{ course.id }}/">Add Activities</a>
+	</li>
+	<li>
+		<a href="/GT/editcourse/{{ course.id }}/">Edit Course Information</a>
+	</li>
+	<li>
+		<div><a href="/GT/deleteCourse/{{ course.id }}/" > Delete Course </a></div>
+	</li>
+	</ul>
     </div>
 {% endfor %}
 </div>
+
+<br>
+<div>
 <form action="/GT/{{ student.id }}/" method="post">{% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Submit" />
 </form>
+</div>
 {% endblock %}

@@ -4,7 +4,7 @@
 
 	<h2>Register</h2>
 	<form action="/GT/accounts/register/" method="post">{% csrf_token %}
-	{{ form }}
+	{{ form.as_p }}
 
 	<input type="submit" value="Register" />
 
