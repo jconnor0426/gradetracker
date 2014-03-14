@@ -1,8 +1,11 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 class Student(models.Model):
+	user = models.OneToOneField(User)
 	fName = models.CharField( max_length=200 )
 	lName = models.CharField( max_length=200 )
 	Institution = models.CharField( max_length=200 )

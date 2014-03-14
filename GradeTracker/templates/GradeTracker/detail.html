@@ -1,11 +1,24 @@
 {% extends "GradeTracker/basepage.html" %}
+{% block menubar %}
+	  <li><a href="/GT/">Home</a></li>
+          <li><a href="/GT/{{ student.id }}/">Class</a></li>
+          <li><a href="page.html">A Page</a></li>
+          <li><a href="another_page.html">Another Page</a></li>
+          <li><a href="/GT/accounts/logout">Logout</a></li>
+{% endblock %}
+
+
 {% block content %}
 <h1>{{ student.fName }}</h1>
 <div id="accordion" >
 {% for course in student.course_set.all %}
-   <h3><a href="/GT/{{ student.id }}/{{ course.id }}/" > {{ course.course_name }} </a></h3>
+   <h3><a href="/GT/{{ student.id }}/{{ course.id }}/"> {{ course.course_name }} </a></h3>
    <div>
-	<div >
+	<div>
+		<h3>add activities</h3>
+		<a href="/GT/{{ student.id }}/{{ course.id }}/">ADD</a>
+	</div>
+	<div>
 		<h3>delete course </h3>
 		<div><a href="/GT/deleteCourse/{{ course.id }}/" > DELETE </a></div>
 	</div>
@@ -16,5 +29,4 @@
 {{ form.as_p }}
 <input type="submit" value="Submit" />
 </form>
-
 {% endblock %}

@@ -11,6 +11,10 @@ class activityAdd(forms.Form):
     activityName = forms.CharField(max_length=200)
     activityWeight = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
 
+class subactivityAdd(forms.Form):
+    subactivityName = forms.CharField(max_length=200)
+    activityWeight = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
+
 #UserCreationForm already created in auth directory
 class MyRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -28,6 +32,7 @@ class MyRegistrationForm(UserCreationForm):
     def save(self, commit=True):
         #commit = False because haven't gotten all info yet
         user = super(MyRegistrationForm, self).save(commit=False)
+
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']

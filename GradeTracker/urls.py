@@ -4,17 +4,19 @@ from GradeTracker import views
 
 urlpatterns = patterns('',
     # ex: /polls/
-    url(r'^$', views.index, name='index'),
-    url(r'^index.html$', views.index, name='index'),
+    url(r'^$', views.login, name='login'),
+    url(r'^index', views.index, name='index'),
     # ex: /polls/5/
     url(r'^(?P<student_id>\d+)/$', views.detail, name='detail'),
 
     url(r'^(?P<student_id>\d+)/(?P<course_id>\d+)/$', views.grades, name='grades'),
-
-    url(r'^deleteCourse/(?P<course_id>\d+)/$', views.deleteCourse, name='delete-course'),
     
-    url(r'^main/$', views.main, name='main'),
+    #Course modification 
+    url(r'^deleteCourse/(?P<course_id>\d+)/$', views.deleteCourse, name='delete-course'),
+    url(r'^editcourse/(?P<course_id>\d+)/$', views.editCourse, name='edit-course'),
 
+#    url(r'(^?P<student_id>\d+)/(?P<course_id>\d+)/(?P<graded_activity_id>\d+)$', views.activity, name='activity'),
+    
     url(r'^(?P<student_id>\d+)/test/$', views.test, name='test'),
 
     #user auth urls --> login and logout

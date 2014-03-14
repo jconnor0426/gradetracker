@@ -1,8 +1,10 @@
 {% extends 'GradeTracker/basepage.html' %}
 
 {% block content %}
-
+	{% for student in student_list %}
+		<p>{{ student }}</p>
+	{% endfor %}
 	<h2>Hi, {{ full_name }} Logged in!</h2>
 	<p>Click <a href="/GT/accounts/logout/">here</a> to logout.</p>
-
+	<p>Click <a href="/GT/index/">student_list</a> to see all students.</p>
 {% endblock %}

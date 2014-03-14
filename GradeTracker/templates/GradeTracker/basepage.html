@@ -25,12 +25,14 @@
       </div>
       <div id="menubar">
         <ul id="menu">
+	  {% block menubar %}
           <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
           <li><a href="/GT/">Home</a></li>
-          <li><a href="GradeTracker/detail.html">Classes</a></li>
+          <li><a href="">Classes</a></li>
           <li><a href="page.html">A Page</a></li>
           <li><a href="another_page.html">Another Page</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="/GT/accounts/logout">Logout</a></li>
+	  {% endblock %}
         </ul>
       </div>
     </div>
