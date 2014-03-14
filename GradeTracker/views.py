@@ -45,8 +45,11 @@ def login(request):
 
 def loggedin(request):
     student_list = Student.objects.filter(user=request.user)
-    return HttpResponseRedirect('/GT/' + str(student_list[0].id) + '/')
-    #return render(request, 'GradeTracker/loggedin.html', {'full_name': request.user.username, 'student_list' : student_list})
+    #What Happens when a student hasn't been created yet?
+    if student_list:
+        return HttpResponseRedirect('/GT/' + str(student_list[0].id) + '/')
+    else:
+        return render(request, 'GradeTracker/loggedin.html', {'full_name': request.user.username, 'student_list' : student_list})
 
 def invalid_login(request):
     return render(request, 'GradeTracker/invalid_login.html')
