@@ -3,21 +3,27 @@
           <li><a href="/GT/">Home</a></li>
           <!-  Am only referencing list object 0, need to reference whatever student
           name is clicked -->
-          <li><a href="/GT/{{ student_list.0.id}}/">Classes</a></li>
+          <li><a href="/GT/{{ student.id }}/">Classes</a></li>
           <li><a href="page.html">A Page</a></li>
           <li><a href="another_page.html">Another Page</a></li>
           <li><a href="/GT/accounts/logout">Logout</a></li>
 {% endblock %}
 
 {% block content %}
+<h1>{{ course.course_name }}</h1>
 <div id="accordion" >
 {% for grade in course.graded_activities_set.all %}
    <h3><a href="/GT/{{ student.id }}/{{ course.id }}/"> {{ grade.activity_name }} </a></h3>
    <div>
-        <div>
+	<ul>
+	<li>
 		<h4>Weight: {{ grade.grade_weight }}</h4>
-        </div>
-    </div>
+	</li>
+	<li>
+		<a href="/GT/{{ student.id }}/{{ course.id }}/{{ grade.id }}">Add Subactivity</a>
+	</li>
+	</ul>
+   </div>
 {% endfor %}
 </div>
 

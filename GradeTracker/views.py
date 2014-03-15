@@ -27,6 +27,19 @@ def grades(request, student_id, course_id):
         form = activityAdd()
     return render(request, 'GradeTracker/grades.html', {'course': course , 'student': course.student , 'form': form })
 
+def activity(request, student_id, course_id, graded_activity_id):
+    activity = get_object_or_404(Graded_Activity, pk=graded_activity_id)
+    if request.method == 'POST': # If the form has been submitted...
+        form = subactivityAdd(request.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            # Process the data in form.cleaned_data
+            activity.subgraded_activites_set.create( subactivity_name = form.cleaned_data['subactivityName'], subgrade_weight = form.cleaned_data['subactivityWeight'] )
+            return HttpResponseRedirect('/GT/' + str(student_id) + "/" + str(course_id) + str(graded_activity_id)) # Redirect after POST
+    else:
+        form = activityAdd()
+    return render(request, 'GradeTracker/activities.html', {'course': course , 'student': course.student , 'activity': activity, 'form': form })
+
+
 def deleteCourse( request, course_id ):
     course = get_object_or_404( Course, pk=course_id )
     studentReturned = course.student.id
