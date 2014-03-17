@@ -22,7 +22,7 @@ def addSub(request, student_id, course_id, graded_activity_id ):
     else: 
         return render(request, 'GradeTracker/login.html')
 
-def deleteSubactivity(request, subactivity_id):
+def deleteSubGradedActivity(request, subactivity_id):
     subactivity = get_object_or_404(SubGraded_Activities, pk=subactivity_id)
     activityReturned = subactivity.main_category.id
     subactivity.delete()
