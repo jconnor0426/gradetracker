@@ -6,6 +6,7 @@ from django.core.context_processors import csrf
 from GradeTracker.models import Student, Course, Graded_Activities, SubGraded_Activities, Templates
 from GradeTracker.forms import courseAdd, activityAdd, activityEdit, subactivityAdd, MyRegistrationForm
 
+@login_required
 def editGradedActivity( request, activity_id=None ):
     
     ##Grab the student from the user object, if there is none return invalid login
