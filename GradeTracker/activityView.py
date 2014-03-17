@@ -12,11 +12,9 @@ def addSub(request, student_id, course_id, graded_activity_id ):
         activity = get_object_or_404( Graded_Activities, pk=graded_activity_id )
         course = get_object_or_404( Course, pk=course_id )        
         if request.method == 'POST':
-            form = subactivityAdd(request.POST, instance=activity)
+            form = subactivityAdd(request.POST)
             if form.is_valid():
                 activity.subgraded_activities_set.create( subactivity_name = form.cleaned_data['subactivityName'], subgrade_weight = form.cleaned_data['subactivityWeight'] )
-                activity.save()
-                form.save()
                 return HttpResponseRedirect('/GT/' + str(student.id) +'/' + str(activity.course.id)  + '/' + str(activity.id) + '/')
         else:
             form = subactivityAdd()
