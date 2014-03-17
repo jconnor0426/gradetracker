@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     
     url(r'^(?P<student_id>\d+)/test/$', views.test, name='test'),
 
+    url(r'^(
     #user auth urls --> login and logout
     url(r'^accounts/login/$', views.login, name='login'),
     url(r'^accounts/auth/$', views.auth_view, name='auth_view'),

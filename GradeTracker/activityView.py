@@ -15,10 +15,15 @@ def addSub(request, student_id, course_id, graded_activity_id ):
             form = subactivityAdd(request.POST)
             if form.is_valid():
                 activity.subgraded_activities_set.create( subactivity_name = form.cleaned_data['subactivityName'], subgrade_weight = form.cleaned_data['subactivityWeight'] )
-                return HttpResponseRedirect('/GT/' + str(student.id) +'/' + str(activity.course.id)  + '/' + str(activity.id) + '/')
+                return HttpResponseRedirect('/GT/' + str(student.id) +'/' + str(activity.course.id)  + '/' + str(activity.id))
         else:
             form = subactivityAdd()
         return render(request, 'GradeTracker/activities.html', {'form':form, 'activity':activity, 'student':student, 'course':course} )
     else: 
         return render(request, 'GradeTracker/login.html')
 
+def deleteSubactivity(request, subactivity_id):
+    subactivity = get_object_or_404(SubGraded_Activities, pk=subactivity_id)
+    activityReturned = subactivity.main_category.id
+    subactivity.delete()
+    return HttpResponseRedirect('/GT/' + str(activityReturned) )
