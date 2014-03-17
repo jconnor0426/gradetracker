@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block content %}
+<div>{{ activity.subgraded_activities_set.all }}</div>
 <h1>{{ activity.activity_name }}</h1>
 <div id="accordion" >
 {% for activ in activity.subgraded_activities_set.all %}
