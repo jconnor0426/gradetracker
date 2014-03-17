@@ -28,3 +28,11 @@ def editGradedActivity( request, activity_id=None ):
     else:
         form = activityEdit(instance=activity) # An unbound form
     return render(request, 'GradeTracker/editActivity.html', { 'form': form , 'activity':activity} )
+
+@login_required
+def deleteGradedActivity( request, activity_id):
+    student = Student.objects.filter(user=request.user)[0]
+    activity = get_object_or_404( Graded_Activities, pk=activity_id ) #Get the Graded_Activity to delete
+    courseReturned = activity.course
+    activity.delete()
+    return HttpResponseRedirect('/GT/' + str(courseReturned.student.id) +'/' + str(courseReturned.id)  + '/' )
