@@ -1,0 +1,33 @@
+{% extends "GradeTracker/basepage.html" %}
+{% block menubar %}
+          <li><a href="/GT/">Home</a></li>
+          <!-  Am only referencing list object 0, need to reference whatever student
+          name is clicked -->
+          <li><a href="/GT/{{ student.id }}/">Classes</a></li>
+          <li><a href="page.html">A Page</a></li>
+          <li><a href="another_page.html">Another Page</a></li>
+          <li><a href="/GT/accounts/logout">Logout</a></li>
+{% endblock %}
+
+{% block content %}
+<h1>{{ activity.activity_name }}</h1>
+<div id="accordion" >
+{% for activity in activity.subgraded_activities_set.all %}
+   <h3><a href="/GT/{{ student.id }}/{{ course.id }}/{{ graded_activity_id }}"> {{ activity.subactivity_name }} </a></h3>
+   <div>
+	<ul>
+	<li>
+		<p>Some</p>
+	</li>
+	<li>
+	</li>
+	</ul>
+   </div>
+{% endfor %}
+</div>
+
+<form action="/GT/{{ student.id }}/{{ course.id }}/" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+{% endblock %}

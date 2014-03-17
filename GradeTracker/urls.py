@@ -15,7 +15,9 @@ urlpatterns = patterns('',
     url(r'^deleteCourse/(?P<course_id>\d+)/$', views.deleteCourse, name='delete-course'),
     url(r'^editcourse/(?P<course_id>\d+)/$', views.editCourse, name='edit-course'),
 
-    url(r'(^?P<student_id>\d+)/(?P<course_id>\d+)/(?P<graded_activity_id>\d+)/$', views.activity, name='activity'),
+    #Activity Modification
+    url(r'(^?P<student_id>\d+)/(?P<course_id>\d+)/(?P<graded_activity_id>\d+)$', views.addSub, name='addSub'),
+    url(r'^editactivity/(?P<activity_id>\d+)/$', views.editGradedActivity, name='edit-activity'),
     
     url(r'^(?P<student_id>\d+)/test/$', views.test, name='test'),
 
