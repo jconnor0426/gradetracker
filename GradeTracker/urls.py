@@ -20,8 +20,8 @@ urlpatterns = patterns('',
     url(r'^deleteactivity/(?P<activity_id>\d+)/$', views.deleteGradedActivity, name='edit-activity'),
 
     #SubActivitity Modification
-    url(r'^editsubactivity/(?P<activity_id>\d+)/$', views.editSubGradedActivity, name='edit-activity'),
-    url(r'^deletesubactivity/(?P<activity_id>\d+)/$', views.deleteSubGradedActivity, name='edit-activity'),    
+    url(r'^editsubactivity/(?P<subactivity_id>\d+)/$', views.editSubGradedActivity, name='edit-activity'),
+    url(r'^deletesubactivity/(?P<subactivity_id>\d+)/$', views.deleteSubGradedActivity, name='edit-activity'),    
 
     url(r'^(?P<student_id>\d+)/test/$', views.test, name='test'),
 
