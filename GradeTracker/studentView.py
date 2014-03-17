@@ -41,3 +41,9 @@ def editCourse( request, course_id=None ):
     else:
         form = courseAdd(instance=course) # An unbound form
     return render(request, 'GradeTracker/editCourse.html', { 'form': form , 'course':course} )
+
+def deleteCourse( request, course_id ):
+    course = get_object_or_404( Course, pk=course_id )
+    studentReturned = course.student.id
+    course.delete()
+    return HttpResponseRedirect( '/GT/' + str(studentReturned ) )

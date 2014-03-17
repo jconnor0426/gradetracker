@@ -11,7 +11,7 @@ from GradeTracker.forms import courseAdd, activityAdd, subactivityAdd, MyRegistr
 
 #OUR PAGES!
 from GradeTracker.indexView import index
-from GradeTracker.studentView import detail, editCourse
+from GradeTracker.studentView import detail, editCourse, deleteCourse
 from GradeTracker.auth_viewView import auth_view
 from GradeTracker.logoutView import logout
 from GradeTracker.gradesView import editGradedActivity
@@ -29,11 +29,7 @@ def grades(request, student_id, course_id):
         form = activityAdd()
     return render(request, 'GradeTracker/grades.html', {'course': course , 'student': course.student , 'form': form })
 
-def deleteCourse( request, course_id ):
-    course = get_object_or_404( Course, pk=course_id )
-    studentReturned = course.student.id
-    course.delete()
-    return HttpResponseRedirect( '/GT/' + str(studentReturned ) )
+
 
 def test(request, student_id):
     course_list = Course.objects.filter(student=student_id)
