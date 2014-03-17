@@ -27,3 +27,6 @@ def deleteSubGradedActivity(request, subactivity_id):
     activityReturned = subactivity.main_category.id
     subactivity.delete()
     return HttpResponseRedirect('/GT/' + str(activityReturned) )
+
+def editSubGradedActivity(request):
+    pass

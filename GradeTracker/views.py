@@ -14,8 +14,8 @@ from GradeTracker.indexView import index
 from GradeTracker.studentView import detail, editCourse, deleteCourse
 from GradeTracker.auth_viewView import auth_view
 from GradeTracker.logoutView import logout
-from GradeTracker.gradesView import editGradedActivity
-from GradeTracker.activityView import addSub
+from GradeTracker.gradesView import editGradedActivity, deleteGradedActivity
+from GradeTracker.activityView import addSub, deleteSubGradedActivity, editSubGradedActivity
 
 def grades(request, student_id, course_id):
     course = get_object_or_404(Course, pk=course_id)
