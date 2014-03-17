@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^editcourse/(?P<course_id>\d+)/$', views.editCourse, name='edit-course'),
 
     #Activity Modification
-    url(r'(^?P<student_id>\d+)/(?P<course_id>\d+)/(?P<graded_activity_id>\d+)$', views.addSub, name='addSub'),
+    url(r'^(?P<student_id>\d+)/(?P<course_id>\d+)/(?P<graded_activity_id>\d+)$', views.addSub, name='activity'),
     url(r'^editactivity/(?P<activity_id>\d+)/$', views.editGradedActivity, name='edit-activity'),
     
     url(r'^(?P<student_id>\d+)/test/$', views.test, name='test'),

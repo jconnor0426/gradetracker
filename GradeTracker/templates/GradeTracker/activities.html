@@ -12,8 +12,8 @@
 {% block content %}
 <h1>{{ activity.activity_name }}</h1>
 <div id="accordion" >
-{% for activity in activity.subgraded_activities_set.all %}
-   <h3><a href="/GT/{{ student.id }}/{{ course.id }}/{{ graded_activity_id }}"> {{ activity.subactivity_name }} </a></h3>
+{% for activ in activity.subgraded_activities_set.all %}
+   <h3><a href="/GT/{{ student.id }}/{{ course.id }}/{{ graded_activity_id }}"> {{activ.subactivity_name }} </a></h3>
    <div>
 	<ul>
 	<li>
@@ -26,7 +26,7 @@
 {% endfor %}
 </div>
 
-<form action="/GT/{{ student.id }}/{{ course.id }}/" method="post">{% csrf_token %}
+<form action="/GT/{{ student.id }}/{{ course.id }}/{{ graded_activity_id }}" method="post">{% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Submit" />
 </form>

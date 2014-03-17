@@ -21,7 +21,7 @@ class activityAdd(forms.Form):
 
 class subactivityAdd(forms.Form):
     subactivityName = forms.CharField(max_length=200)
-    activityWeight = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
+    subactivityWeight = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
 
 #UserCreationForm already created in auth directory
 class MyRegistrationForm(UserCreationForm):
