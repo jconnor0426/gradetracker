@@ -27,4 +27,4 @@ def editGradedActivity( request, activity_id=None ):
             return HttpResponseRedirect('/GT/' + str(student.id) +'/' + str(activity.course.id)  + '/' ) # Redirect after POST
     else:
         form = activityEdit(instance=activity) # An unbound form
-    return render(request, 'GradeTracker/editCourse.html', { 'form': form , 'activity':activity} )
+    return render(request, 'GradeTracker/editActivity.html', { 'form': form , 'activity':activity} )
