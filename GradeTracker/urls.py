@@ -3,22 +3,26 @@ from django.conf.urls import patterns, url
 from GradeTracker import views
 
 urlpatterns = patterns('',
-    # ex: /polls/
+
     url(r'^$', views.login, name='login'),
     url(r'^index', views.index, name='index'),
-    # ex: /polls/5/
+
     url(r'^(?P<student_id>\d+)/$', views.detail, name='detail'),
 
+    #Course pages 
     url(r'^(?P<student_id>\d+)/(?P<course_id>\d+)/$', views.grades, name='grades'),
-    
-    #Course modification 
     url(r'^deleteCourse/(?P<course_id>\d+)/$', views.deleteCourse, name='delete-course'),
     url(r'^editcourse/(?P<course_id>\d+)/$', views.editCourse, name='edit-course'),
 
     #Activity Modification
     url(r'^(?P<student_id>\d+)/(?P<course_id>\d+)/(?P<graded_activity_id>\d+)$', views.addSub, name='activity'),
     url(r'^editactivity/(?P<activity_id>\d+)/$', views.editGradedActivity, name='edit-activity'),
-    
+    url(r'^deleteactivity/(?P<activity_id>\d+)/$', views.deleteGradedActivity, name='edit-activity'),
+
+    #SubActivitity Modification
+    url(r'^editsubactivity/(?P<activity_id>\d+)/$', views.editSubGradedActivity, name='edit-activity'),
+    url(r'^deletesubactivity/(?P<activity_id>\d+)/$', views.deleteSubGradedActivity, name='edit-activity'),    
+
     url(r'^(?P<student_id>\d+)/test/$', views.test, name='test'),
 
     #user auth urls --> login and logout
