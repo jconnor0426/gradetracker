@@ -5,6 +5,7 @@ from django.core.context_processors import csrf
 #cross-site request forgery --> method for people hacking into website
 from GradeTracker.models import Student, Course, Graded_Activities, SubGraded_Activities, Templates
 from GradeTracker.forms import courseAdd, activityAdd, activityEdit, subactivityAdd, MyRegistrationForm
+from django.contrib.auth.decorators import login_required
 
 @login_required
 def editGradedActivity( request, activity_id=None ):
