@@ -6,6 +6,7 @@ from django.core.context_processors import csrf
 from GradeTracker.models import Student, Course, Graded_Activities, SubGraded_Activities, Templates
 from GradeTracker.forms import courseAdd, activityAdd, subactivityAdd, MyRegistrationForm
 
+@login_required
 def addSub(request, student_id, course_id, graded_activity_id ):
     if request.user.is_authenticated():
         student = Student.objects.filter(user=request.user)[0]
@@ -22,6 +23,7 @@ def addSub(request, student_id, course_id, graded_activity_id ):
     else: 
         return render(request, 'GradeTracker/login.html')
 
+@login_required
 def deleteSubGradedActivity(request, subactivity_id):
     student = Student.objects.filter(user=request.user)[0]
     subactivity = get_object_or_404(SubGraded_Activities, pk=subactivity_id)
@@ -30,5 +32,6 @@ def deleteSubGradedActivity(request, subactivity_id):
     subactivity.delete()
     return HttpResponseRedirect('/GT/' + str(courseReturned.student.id) +'/' + str(courseReturned.id)  + '/'  + str(activityReturned) + '/' )
 
+@login_required
 def editSubGradedActivity(request):
     pass
