@@ -14,21 +14,10 @@ from GradeTracker.indexView import index
 from GradeTracker.studentView import detail, editCourse, deleteCourse
 from GradeTracker.auth_viewView import auth_view
 from GradeTracker.logoutView import logout
-from GradeTracker.gradesView import editGradedActivity, deleteGradedActivity
-from GradeTracker.activityView import addSub, deleteSubGradedActivity, editSubGradedActivity
+from GradeTracker.gradedActivityView import grades, editGradedActivity, deleteGradedActivity
+from GradeTracker.subGradedActivityView import addSub, deleteSubGradedActivity, editSubGradedActivity
 from GradeTracker.accountView import account
 
-def grades(request, student_id, course_id):
-    course = get_object_or_404(Course, pk=course_id)
-    if request.method == 'POST': # If the form has been submitted...
-        form = activityAdd(request.POST) # A form bound to the POST data
-        if form.is_valid(): # All validation rules pass
-            # Process the data in form.cleaned_data
-            course.graded_activities_set.create( activity_name = form.cleaned_data['activityName'], grade_weight = form.cleaned_data['activityWeight'] )
-            return HttpResponseRedirect('/GT/' + str(student_id) + "/" + str(course_id)) # Redirect after POST
-    else:
-        form = activityAdd()
-    return render(request, 'GradeTracker/grades.html', {'course': course , 'student': course.student , 'form': form })
 
 
 
