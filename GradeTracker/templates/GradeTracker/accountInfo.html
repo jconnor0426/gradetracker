@@ -1,0 +1,32 @@
+{% extends "GradeTracker/basepage.html" %}
+{% block menubar %}
+          <li><a href="/GT/">Home</a></li>
+          <!-  Am only referencing list object 0, need to reference whatever student
+          name is clicked -->
+          <li><a href="/GT/{{ student.id }}/">Classes</a></li>
+          <li><a href="page.html">A Page</a></li>
+          <li><a href="another_page.html">Another Page</a></li>
+          <li><a href="/GT/accounts/logout">Logout</a></li>
+{% endblock %}
+
+{% block content %}
+<h1>{{ user.username }}</h1>
+<div id="accordion" >
+   <h3><a href="">Account Info</a></h3>
+   <div>
+	<ul>
+		<li>
+			{{ user.first_name }}	
+		</li>
+
+		<li>
+			{{ user.last_name }}
+		</li>
+
+		<li>
+			{{ user.email }}
+		</li>
+	</ul>
+   </div>
+</div>
+{% endblock %}
