@@ -9,6 +9,7 @@ urlpatterns = patterns('',
 
     url(r'^(?P<student_id>\d+)/$', views.detail, name='detail'),
     url(r'^(?P<student_id>\d+)/account$', views.account, name='account'),
+    url(r'^(?P<student_id>\d+)/accountedit$', views.editAccount, name='ediAccount'),
 
     #Course pages 
     url(r'^(?P<student_id>\d+)/(?P<course_id>\d+)/$', views.grades, name='grades'),

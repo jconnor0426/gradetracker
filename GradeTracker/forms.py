@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from GradeTracker.models import Course, Graded_Activities
+from GradeTracker.models import Student, Course, Graded_Activities
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -8,7 +8,13 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class userEdit(ModelForm):
     class Meta:
         model = User
-        
+        fields = ('username', 'email', 'first_name',
+        'last_name', 'password')
+
+class studentEdit(ModelForm):
+    class Meta:
+        model = Student
+        fields = ('Institution',)
 
 class courseAdd(ModelForm):
     class Meta:
