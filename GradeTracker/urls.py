@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     url(r'^index', views.index, name='index'),
 
     url(r'^(?P<student_id>\d+)/$', views.detail, name='detail'),
+    url(r'^(?P<student_id>\d+)/account$', views.account, name='account'),
 
     #Course pages 
     url(r'^(?P<student_id>\d+)/(?P<course_id>\d+)/$', views.grades, name='grades'),

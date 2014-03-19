@@ -5,6 +5,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+class userEdit(ModelForm):
+    class Meta:
+        model = User
+        
+
 class courseAdd(ModelForm):
     class Meta:
         model = Course

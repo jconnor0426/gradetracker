@@ -1,4 +1,16 @@
 {% extends "GradeTracker/basepage.html" %}
+{% block content %}
+<form action="/GT/{{ student_id }}/account/" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+
+{% endblock %}
+
+
+
+
+{% extends "GradeTracker/basepage.html" %}
 {% block menubar %}
           <li><a href="/GT/">Home</a></li>
           <!-  Am only referencing list object 0, need to reference whatever student
@@ -10,22 +22,23 @@
 {% endblock %}
 
 {% block content %}
-<h1>{{ activity.activity_name }}</h1>
+<h1>{{ user.username }}</h1>
 <div id="accordion" >
-{% for activ in activity.subgraded_activities_set.all %}
-   <h3><a href="/GT/{{ student.id }}/{{ course.id }}/{{ activity.id }}"> {{activ.subactivity_name }} </a></h3>
+   <h3><a href="">Account Info</a></h3>
    <div>
 	<ul>
 		<li>
-			{{ activ.subgrade_weight }}
+			{{ user.first_name }}	
+		</li>
+
+		<li>
+			{{ user.last_name }}
+		</li>
+
+		<li>
+			{{ user.email }}
 		</li>
 	</ul>
    </div>
-{% endfor %}
 </div>
-
-<form action="/GT/{{ student.id }}/{{ course.id }}/{{ activity.id }}" method="post">{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Submit" />
-</form>
 {% endblock %}
