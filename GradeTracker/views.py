@@ -13,7 +13,7 @@ from GradeTracker.forms import courseAdd, activityAdd, subactivityAdd, MyRegistr
 from GradeTracker.indexView import index
 from GradeTracker.auth_viewView import auth_view
 from GradeTracker.logoutView import logout
-from GradeTracker.accountView import account
+from GradeTracker.accountView import account, editAccount
 
 #Model Management Views
 from GradeTracker.studentView import detail, editCourse, deleteCourse

@@ -1,7 +1,8 @@
 {% extends "GradeTracker/basepage.html" %}
 {% block content %}
-<form action="/GT/{{ student.id }}/account" method="post">{% csrf_token %}
-{{ form.as_p }}
+<form action="/GT/{{ student.id }}/accountedit" method="post">{% csrf_token %}
+{{ userForm.as_p }}
+{{ studentForm.as_p }}
 <input type="submit" value="Submit" />
 </form>
 {% endblock %}
