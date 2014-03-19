@@ -7,8 +7,8 @@ from GradeTracker.models import User, Student, Course, Graded_Activities, SubGra
 from GradeTracker.forms import userEdit, studentEdit, courseAdd, activityAdd, subactivityAdd, MyRegistrationForm
 
 def account(request, student_id):
-    user = User.objects.filter(id=request.user.id)
-    student= Student.objects.get(id=student_id)
+    user = User.objects.get(id=request.user.id)
+    student = Student.objects.get(id=student_id)
     return render (request, 'GradeTracker/accountInfo.html', {'user':user, 'student':student})
 
 def editAccount(request, student_id):
@@ -16,10 +16,13 @@ def editAccount(request, student_id):
     user = User.objects.get(id=request.user.id)
 
     if request.method == 'POST':
-        form = userEdit(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
+        userForm = userEdit(request.POST, instance=user)
+        studentForm = studentEdit(request.POST, instance=student)
+        if userForm.is_valid() and studentForm.is_valid():
+            userForm.save()
+            studentForm.save()
             return HttpResponseRedirect('/GT/' + str(student_id) + '/account')
     else:
-        form = userEdit(instance=user)
-    return render(request, 'GradeTracker/account.html', {'form':form, 'user':user, 'student':student} )
+        userForm = userEdit(instance=user)
+        studentForm = studentEdit(instance=student)
+    return render(request, 'GradeTracker/account.html', {'userForm':userForm, 'studentForm':studentForm, 'user':user, 'student':student} )
