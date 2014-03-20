@@ -12,19 +12,19 @@
 {% block content %}
 <h1>{{ course.course_name }}</h1>
 <div id="accordion" >
-{% for grade in course.graded_activities_set.all %}
-   <h3><a href="/GT/{{ student.id }}/{{ course.id }}/"> {{ grade.activity_name }} </a></h3>
+{% for activity in course.graded_activities_set.all %}
+   <h3><a href="/GT/{{ student.id }}/{{ course.id }}/"> {{ activity.activity_name }} </a></h3>
    <div>
 	<ul>
-	<li>
-		<h4>Weight: {{ grade.grade_weight }}</h4>
-	</li>
-      <li>
-        <a href="/GT/editactivity/{{grade.id}}" >Edit Activity </a>
-      </li>
-	<li>
-		<a href="/GT/{{ student.id }}/{{ course.id }}/{{ grade.id }}">Add Subactivity</a>
-	</li>
+		<li>
+			<h4>Weight: {{ activity.grade_weight }}</h4>
+		</li>
+      		<li>
+        		<a href="/GT/editactivity/{{activity.id}}" >Edit Activity </a>
+      		</li>
+		<li>
+			<a href="/GT/{{ student.id }}/{{ course.id }}/{{ activity.id }}">Add Subactivity</a>
+		</li>
 	</ul>
    </div>
 {% endfor %}
