@@ -34,5 +34,19 @@ def deleteSubGradedActivity(request, subactivity_id):
     return HttpResponseRedirect('/GT/' + str(courseReturned.student.id) +'/' + str(courseReturned.id)  + '/'  + str(activityReturned) + '/' )
 
 @login_required
-def editSubGradedActivity(request):
-    pass
+def editSubGradedActivity(request, subactivity_id):
+    subactivity = get_object_or_404( SubGraded_Activities, pk=subactivity_id ) #Get the subGraded_Activity to edit
+    activity= subactivity.main_category                 #Get Activity to return to 
+    courseReturned = activity.course                      #Get the course to return to
+    student = Student.objects.filter(user=request.user)[0] #Get the student to return to 
+
+    if request.method == 'POST':            # If the form has been submitted...
+        form = subactivityEdit(request.POST, instance=subactivity) # A form bound to the POST data, with the activity loaded
+        if form.is_valid():                 # All validation rules pass
+            # Process the data in form.cleaned_data
+            form.save()
+
+            return HttpResponseRedirect('/GT/' + str(student.id) +'/' + str(courseReturned.id)  + '/' + activity.id + '/' ) # Redirect after POST
+    else:
+        form = activityEdit(instance=subactivity) # An unbound form
+    return render(request, 'GradeTracker/editSubActivity.html', { 'form': form , 'subactivity':subactivity} )

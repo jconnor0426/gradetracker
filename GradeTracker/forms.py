@@ -26,6 +26,11 @@ class activityEdit( ModelForm):
         model = Graded_Activities
         exclude = ('course', )
 
+class subactivityEdit( ModelForm):
+    class Meta:
+        model = Graded_Activities
+        exclude = ('main_category', )        
+
 class activityAdd(forms.Form):
     activityName = forms.CharField(max_length=200)
     activityWeight = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
