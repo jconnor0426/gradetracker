@@ -18,7 +18,16 @@
 		<ol><span style="margin-left:-30px"><strong>Activties:</strong></span>
 		{% for activity in activities %}
 		{% if activity.course == course %}
-			<li>{{ activity.activity_name }}</li>	
+			<li style="margin-left:-10px">{{ activity.activity_name }}</li>
+			<ol><strong>Subactivities:</strong>
+			{% for subactivity in subactivities %}
+			{% if subactivity.main_category == activity %}
+				<li style="margin-left:20px">{{ subactivity.subactivity_name }}</li>
+			{% endif %}
+			{% empty %}
+				<li>None</li>
+			{% endfor %}
+			</ol>
 		{% endif %}
 		{% endfor %}
 		</ol>

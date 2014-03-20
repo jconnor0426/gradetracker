@@ -10,6 +10,7 @@ from GradeTracker.forms import courseAdd, activityAdd, subactivityAdd, MyRegistr
 
 
 #OUR PAGES!
+from GradeTracker.welcomeView import welcome
 from GradeTracker.indexView import index
 from GradeTracker.auth_viewView import auth_view
 from GradeTracker.logoutView import logout

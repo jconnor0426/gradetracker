@@ -4,7 +4,7 @@ from GradeTracker import views
 
 urlpatterns = patterns('',
 
-    url(r'^$', views.login, name='login'),
+    url(r'^$', views.welcome, name='welcome'),
     url(r'^index', views.index, name='index'),
 
     url(r'^(?P<student_id>\d+)/$', views.detail, name='detail'),
