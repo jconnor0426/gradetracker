@@ -24,6 +24,8 @@ class Graded_Activities(models.Model):
 	activity_name = models.CharField(max_length=200)
 	#set grade_weight minimum and maximum from 0-100% represented as 0-1
 	grade_weight = models.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
+	grade_earned = models.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
+	grade_due_date = models.DateField()
 	def __str__(self):
 		return self.course.student.fName + '-' + self.activity_name + ':' + str(self.grade_weight)
 
@@ -31,6 +33,8 @@ class SubGraded_Activities(models.Model):
 	main_category = models.ForeignKey('Graded_Activities')
 	subactivity_name = models.CharField(max_length=200)
 	subgrade_weight = models.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
+	subgrade_earned = models.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
+	subgrade_due_date = models.DateField()
 	def __str__(self):
 		return (self.main_category.activity_name + ':' +  str(self.main_category.grade_weight) + 
 		'     ' + self.subactivity_name + ':' + str(self.subgrade_weight))
