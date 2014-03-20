@@ -12,12 +12,18 @@
 {% block content %}
 <h1>{{ activity.activity_name }}</h1>
 <div id="accordion" >
-{% for activ in activity.subgraded_activities_set.all %}
-   <h3><a href="/GT/{{ student.id }}/{{ course.id }}/{{ activity.id }}"> {{activ.subactivity_name }} </a></h3>
+{% for subactivity in activity.subgraded_activities_set.all %}
+   <h3><a href="/GT/{{ student.id }}/{{ course.id }}/{{ activity.id }}"> {{subactivity.subactivity_name }} </a></h3>
    <div>
 	<ul>
 		<li>
-			{{ activ.subgrade_weight }}
+			{{ subactivity.subgrade_weight }}
+		</li>
+		<li>
+			<a href="/GT/editsubactivity/{{ subactivity.id}}/">Edit Subactivity</a>
+		</li>
+		<li>
+			 <a href="/GT/deletesubactivity/{{ subactivity.id }}/" >Delete Subactiivity </a>
 		</li>
 	</ul>
    </div>

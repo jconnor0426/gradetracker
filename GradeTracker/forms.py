@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from GradeTracker.models import Student, Course, Graded_Activities
+from GradeTracker.models import Student, Course, Graded_Activities, SubGraded_Activities
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -28,7 +28,7 @@ class activityEdit( ModelForm):
 
 class subactivityEdit( ModelForm):
     class Meta:
-        model = Graded_Activities
+        model = SubGraded_Activities
         exclude = ('main_category', )        
 
 class activityAdd(forms.Form):

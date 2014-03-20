@@ -5,7 +5,7 @@ from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 #cross-site request forgery --> method for people hacking into website
 from GradeTracker.models import Student, Course, Graded_Activities, SubGraded_Activities, Templates
-from GradeTracker.forms import courseAdd, activityAdd, subactivityAdd, MyRegistrationForm
+from GradeTracker.forms import courseAdd, activityAdd, subactivityAdd, subactivityEdit, MyRegistrationForm
 
 @login_required
 def addSub(request, student_id, course_id, graded_activity_id ):
@@ -28,10 +28,10 @@ def addSub(request, student_id, course_id, graded_activity_id ):
 def deleteSubGradedActivity(request, subactivity_id):
     student = Student.objects.filter(user=request.user)[0]
     subactivity = get_object_or_404(SubGraded_Activities, pk=subactivity_id)
-    activityReturned = subactivity.main_category.id
+    activityReturned = subactivity.main_category
     courseReturned = activityReturned.course
     subactivity.delete()
-    return HttpResponseRedirect('/GT/' + str(courseReturned.student.id) +'/' + str(courseReturned.id)  + '/'  + str(activityReturned) + '/' )
+    return HttpResponseRedirect('/GT/' + str(courseReturned.student.id) + '/' + str(courseReturned.id)  + '/'  + str(activityReturned.id))
 
 @login_required
 def editSubGradedActivity(request, subactivity_id):
@@ -46,7 +46,7 @@ def editSubGradedActivity(request, subactivity_id):
             # Process the data in form.cleaned_data
             form.save()
 
-            return HttpResponseRedirect('/GT/' + str(student.id) +'/' + str(courseReturned.id)  + '/' + activity.id + '/' ) # Redirect after POST
+            return HttpResponseRedirect('/GT/' + str(student.id) +'/' + str(courseReturned.id)  + '/' + str(activity.id)) # Redirect after POST
     else:
-        form = activityEdit(instance=subactivity) # An unbound form
+        form = subactivityEdit(instance=subactivity) # An unbound form
     return render(request, 'GradeTracker/editSubActivity.html', { 'form': form , 'subactivity':subactivity} )

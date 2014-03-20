@@ -15,15 +15,22 @@
    <h3><a href="/GT/{{ student.id }}/{{ course.id }}/"> {{ course.course_name }} </a></h3>
    <div>
    	<ul>
-	<li>
-		<a href="/GT/{{ student.id }}/{{ course.id }}/">Add Activities</a>
-	</li>
-	<li>
-		<a href="/GT/editcourse/{{ course.id }}/">Edit Course Information</a>
-	</li>
-	<li>
-		<div><a href="/GT/deleteCourse/{{ course.id }}/" > Delete Course </a></div>
-	</li>
+		<ol><span style="margin-left:-30px"><strong>Activties:</strong></span>
+		{% for activity in activities %}
+		{% if activity.course == course %}
+			<li>{{ activity.activity_name }}</li>	
+		{% endif %}
+		{% endfor %}
+		</ol>
+		<li>
+			<a href="/GT/{{ student.id }}/{{ course.id }}/">Add Activities</a>
+		</li>
+		<li>
+			<a href="/GT/editcourse/{{ course.id }}/">Edit Course Information</a>
+		</li>
+		<li>
+			<div><a href="/GT/deleteCourse/{{ course.id }}/" > Delete Course </a></div>
+		</li>
 	</ul>
     </div>
 {% endfor %}

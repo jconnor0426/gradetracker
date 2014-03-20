@@ -9,6 +9,9 @@ from GradeTracker.forms import courseAdd, activityAdd, subactivityAdd, MyRegistr
 ## Page that shows the student overview ##
 def detail(request, student_id):
     student = get_object_or_404(Student, pk=student_id)
+    courses = Course.objects.all()
+    activities = Graded_Activities.objects.all()
+    subactivities = SubGraded_Activities.objects.all()
     if request.method == 'POST': # If the form has been submitted...
         form = courseAdd(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
@@ -18,7 +21,8 @@ def detail(request, student_id):
             return HttpResponseRedirect('/GT/' + str(student_id) ) # Redirect after POST
     else:
         form = courseAdd() # An unbound form
-    return render(request, 'GradeTracker/detail.html', {'student': student , 'form': form})
+    return render(request, 'GradeTracker/detail.html', {'student': student , 'form': form, \
+        'courses':courses, 'activities':activities, 'subactivities':subactivities})
 
 ## Page that allows you to edit a course name or course code ##
 def editCourse( request, course_id=None ):
