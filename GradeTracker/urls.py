@@ -26,7 +26,7 @@ urlpatterns = patterns('',
     url(r'^deletesubactivity/(?P<subactivity_id>\d+)/$', views.deleteSubGradedActivity, name='edit-activity'),    
 
     #What-If Page
-    url(r^(?whatIf/(?P<course_id>\d+)/$', views.whatIfView, name="whatIfView"),
+    url(r'^whatIf/(?P<course_id>\d+)/$', views.whatIfView, name="whatIfView"),
 
     url(r'^(?P<student_id>\d+)/test/$', views.test, name='test'),
 
