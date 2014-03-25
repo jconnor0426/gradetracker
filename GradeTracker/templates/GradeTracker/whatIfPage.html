@@ -1,5 +1,7 @@
-<html>
-<head>
+{% extends "GradeTracker/basepage.html" %}
+
+{% block content %}
+
   <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
 
   <script type="text/javascript" src="{% static 'GradeTracker/simple-slider.js' %}"></script>
@@ -17,7 +19,7 @@
   p { font-size: 15px; margin-bottom: 30px; }
   h2:first-of-type { margin-top: 0; }
   </style>
-</head>
+
 
 <body>
 
@@ -136,4 +138,6 @@
 
   </script>    
 </body>
-</html>
+
+
+{% endblock %}
