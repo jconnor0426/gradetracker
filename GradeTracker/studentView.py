@@ -26,7 +26,7 @@ def detail(request, student_id):
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             course_to_save = form.save( commit=False) #This returns an object form the form with no student associated with it
-            student.course_set.create( course_name = course_to_save.course_name , course_code =course_to_save.course_code  )
+            student1.course_set.create( course_name = course_to_save.course_name , course_code =course_to_save.course_code  )
             return HttpResponseRedirect('/GT/' + str(student_id) ) # Redirect after POST
     else:
         form = courseAdd() # An unbound form
