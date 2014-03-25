@@ -28,10 +28,10 @@
       hello
       {{ course }}
 	<table>
-      {% for category in course.graded_activites_set.all %}
+      {% for activity in course.graded_activities_set.all %}
 	<tr>
             <td> test </td>
-		<td>{{ category.activity_name }}</td>
+		<td>{{ activity.activity_name }}</td>
 		<td>
 			<input type="number" name="testWeight" min="0" max="1"
 				value="0.5" step=".05"/>
