@@ -25,10 +25,11 @@
 <body>
 
 	<h1>Activities</h1>
-
+      {{ course.graded_activities.all }}
 	<table>
       {% for category in course.graded_activites.all %}
 	<tr>
+            <td> test </td>
 		<td>{{ category.activity_name }}</td>
 		<td>
 			<input type="number" name="testWeight" min="0" max="1"
