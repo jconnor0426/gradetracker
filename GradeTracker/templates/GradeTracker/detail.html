@@ -11,13 +11,12 @@
 {% block content %}
 <h1>{{ student.fName }}</h1>
 <div id="accordion" >
-{% for course in student.course_set.all %}
+{% for course in courses %}
    <h3><a href="/GT/{{ student.id }}/{{ course.id }}/"> {{ course.course_name }} </a></h3>
    <div>
    	<ul>
 		<ol><span style="margin-left:-30px"><strong>Activties:</strong></span>
 		{% for activity in activities %}
-		{% if activity.course == course %}
 			<li style="margin-left:-10px">{{ activity.activity_name }}</li>
 			<ol><strong>Subactivities:</strong>
 			{% for subactivity in subactivities %}
@@ -28,7 +27,8 @@
 				<li>None</li>
 			{% endfor %}
 			</ol>
-		{% endif %}
+		{% empty %}
+			<li>None</li>
 		{% endfor %}
 		</ol>
 		<li>

@@ -1,0 +1,13 @@
+{% extends "GradeTracker/basepage.html" %}
+{% block menubar %}
+	  <li><a href="/GT/">Home</a></li>
+	  <li><a href="/GT/accounts/login/">Login</a></li>
+          <li><a href="/GT/{{ student_list.0.id}}/">Classes</a></li>
+          <li><a href="another_page.html">Another Page</a></li>
+          <li><a href="/GT/accounts/logout">Logout</a></li>
+{% endblock %} 
+
+{% block content %}
+	<h3>Welcome to GradeTracker</h3>
+	<p>Please login to begin adding classes<p>
+{% endblock %}

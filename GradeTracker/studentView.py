@@ -8,10 +8,19 @@ from GradeTracker.forms import courseAdd, activityAdd, subactivityAdd, MyRegistr
 
 ## Page that shows the student overview ##
 def detail(request, student_id):
-    student = get_object_or_404(Student, pk=student_id)
-    courses = Course.objects.all()
-    activities = Graded_Activities.objects.all()
-    subactivities = SubGraded_Activities.objects.all()
+    student1 = get_object_or_404(Student, pk=student_id)
+    courses = Course.objects.filter(student=student1.id)
+    activities = []
+    subactivities = []
+    for activ in Graded_Activities.objects.all():
+        for course in courses:
+            if course == activ.course:
+                activities.append(activ)
+    for activity in activities:
+        for subactiv in SubGraded_Activities.objects.all():
+            if activity == subactiv.main_category:
+                subactivities.append(subactiv)
+
     if request.method == 'POST': # If the form has been submitted...
         form = courseAdd(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
@@ -21,10 +30,9 @@ def detail(request, student_id):
             return HttpResponseRedirect('/GT/' + str(student_id) ) # Redirect after POST
     else:
         form = courseAdd() # An unbound form
-    return render(request, 'GradeTracker/detail.html', {'student': student , 'form': form, \
+    return render(request, 'GradeTracker/detail.html', {'student': student1 , 'form': form, \
         'courses':courses, 'activities':activities, 'subactivities':subactivities})
 
-## Page that allows you to edit a course name or course code ##
 def editCourse( request, course_id=None ):
     
     ##Grab the student from the user object, if there is none return invalid login
