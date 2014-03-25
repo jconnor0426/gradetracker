@@ -8,5 +8,5 @@ from GradeTracker.forms import courseAdd, activityAdd, activityEdit, subactivity
 from django.contrib.auth.decorators import login_required
 
 @login_required
-def whatIfView(request):
+def whatIfView(request, course_id):
         return render(request, 'GradeTracker/whatIfPage.html')
