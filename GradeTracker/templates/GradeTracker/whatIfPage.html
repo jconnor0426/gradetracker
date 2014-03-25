@@ -25,24 +25,18 @@
 <body>
 
 	<h1>Activities</h1>
-      hello
-      {{ course }}
 	<table>
       {% for activity in course.graded_activities_set.all %}
 	<tr>
-            <td> test </td>
 		<td>{{ activity.activity_name }}</td>
 		<td>
 			<input type="number" name="testWeight" min="0" max="1"
-				value="0.5" step=".05"/>
+				value="{{ activity.grade_weight }}" step=".05"/>
 		</td>
 	</tr>
 	{% endfor %}
 	</table>
-  
- <br> 
- <br> 
- <br> 
+
   <table>
   <tr>
     <td> 
