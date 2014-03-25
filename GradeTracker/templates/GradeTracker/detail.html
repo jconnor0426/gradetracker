@@ -18,7 +18,7 @@
    <div>
    	<ul>
 		<ol><span style="margin-left:-30px"><strong>Activties:</strong></span>
-		{% for activity in course.grade_activities_set.all %}
+		{% for activity in course.graded_activities_set.all %}
 			<li style="margin-left:-10px">{{ activity.activity_name }}</li>
 			{% if activity.subgraded_activities_set.all %}
 				<ol><strong>Subactivities:</strong>
