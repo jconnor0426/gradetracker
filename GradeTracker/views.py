@@ -21,6 +21,9 @@ from GradeTracker.studentView import detail, editCourse, deleteCourse
 from GradeTracker.gradedActivityView import grades, editGradedActivity, deleteGradedActivity
 from GradeTracker.subGradedActivityView import addSub, deleteSubGradedActivity, editSubGradedActivity
 
+#User Features Page
+from GradeTracker.whatIfView import whatIfView
+
 
 
 def test(request, student_id):
