@@ -18,6 +18,7 @@
 		<ol><span style="margin-left:-30px"><strong>Activties:</strong></span>
 		{% for activity in activities %}
 			<li style="margin-left:-10px">{{ activity.activity_name }}</li>
+			{% if activity.subgraded_activities_set.all %}
 			<ol><strong>Subactivities:</strong>
 			{% for subactivity in activity.subgraded_activities_set.all %}
 			{% if subactivity.main_category == activity %}
@@ -26,6 +27,7 @@
 			{% empty %}
 				<li>None</li>
 			{% endfor %}
+			{% endif %}
 			</ol>
 		{% empty %}
 			<li>None</li>
