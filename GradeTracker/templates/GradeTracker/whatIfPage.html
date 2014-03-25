@@ -26,6 +26,10 @@
 
 	<h1>Activities</h1>
 	<table>
+      <tr> 
+            <td>Activity</td>
+            <td>Activity Weight </td>
+      </tr> 
       {% for activity in course.graded_activities_set.all %}
 	<tr>
 		<td>{{ activity.activity_name }}</td>
