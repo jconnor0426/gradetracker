@@ -9,4 +9,5 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def whatIfView(request, course_id):
-        return render(request, 'GradeTracker/whatIfPage.html')
+        course = get_object_or_404( Course, pk=course_id )	
+        return render(request, 'GradeTracker/whatIfPage.html', { 'course':course, })

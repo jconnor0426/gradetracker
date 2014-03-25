@@ -4,11 +4,8 @@
 
 
 {% block links %}
-
   <script src="{% static 'GradeTracker/jquery.min.js' %}"></script> 
-
   <script type="text/javascript" src="{% static 'GradeTracker/simple-slider.js' %}"></script>
-
   <link rel="stylesheet" type="text/css" href="{% static 'GradeTracker/simple-slider.css' %} "  />
   <link rel="stylesheet" type="text/css" href="{% static 'GradeTracker/simple-slider-volume.css' %}"  />  
   
@@ -27,30 +24,18 @@
 {% block content %}
 <body>
 
-	<h1>
-		Enter The Categories and Weights Here
-	</h1>
+	<h1>Activities</h1>
 
 	<table>
+      {% for category in course.graded_activites.all %}
 	<tr>
-		<td>
-			Test Weight (between 0 and 1 )
-		</td>
+		<td>{{ category.activity_name }}</td>
 		<td>
 			<input type="number" name="testWeight" min="0" max="1"
 				value="0.5" step=".05"/>
 		</td>
 	</tr>
-	<tr>
-		<td>
-			Homework Weight (between 0 and 1 )
-		</td>
-		<td>
-			<input type="number" name="hwWeight" min="0" max="1"
-				value="0.5" step=".05"/>
-		</td>
-	</tr>
-	
+	{% endfor %}
 	</table>
   
  <br> 
