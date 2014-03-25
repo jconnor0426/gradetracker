@@ -10,6 +10,7 @@
 
 {% block content %}
 <h1>{{ student.fName }}</h1>
+{{ courses }}
 <div id="accordion" >
 {% for course in courses %}
    <h3><a href="/GT/{{ student.id }}/{{ course.id }}/"> {{ course.course_name }} </a></h3>
