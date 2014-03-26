@@ -87,12 +87,32 @@
           .html(data.value.toFixed(2));
     });
 
-{% for activity in course.graded_activities_set.all %}
+  var temptotal = 0;
+  var tempsinlge = 0;
+  var remainder = 0;
   var total = document.getElementById('slidertotal').value;
   var total = parseFloat(total);
+
+  function getTotal(){
+	temptotal = 0;
+        {% for activity in course.graded_activities_set.all %}
+		tempsingle = document.getElementById('slider{{ forloop.counter }}').value * {{ activity.grade_weight }};
+                temptotal += tempsingle;
+        {% endfor %}
+	total = temptotal;
+  }
+
+  $( "#slidertotal" ).change(function( ) {
+        remainder = 1 - $(this).val();
+	alert("remainder is " + remainder);
+  });
+
+
+{% for activity in course.graded_activities_set.all %}
   $( "#slider{{ forloop.counter }}" ).bind( "slider:changed", function( event, data ) {
+	getTotal();
 	$("#slidertotal").simpleSlider("setValue", 
-		data.value * {{ activity.grade_weight }} + total );   
+		total );   
   });
 
 {% endfor %}
