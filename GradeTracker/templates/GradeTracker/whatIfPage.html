@@ -42,43 +42,37 @@
 	</table>
 
   <table>
+  {% for activity in course.graded_activities_set.all %}
   <tr>
-    <td> 
-      Tests
+    <td>
+      {{ activity.activity_name }}
     </td>
     <td>
-	<input type='checkbox' id='check1' /> 
+        <input type='checkbox' id='checks{{ forloop.counter }}' />
     </td>
     <td>
-      <input id="slide1" type="text" data-slider="true" value="0.4" data-slider-highlight="true" data-slider-theme="volume">
+      <input id="slider{{ forloop.counter }}" type="text" data-slider="true" value="{{ activity.grade_earned }}" data-slider-highlight="true" data-slider-theme="volume">
     </td>
-      
-    </tr>
-    <tr>
-    <td> 
-      Homework
-    </td>
+
+   </tr>
+  {% endfor %}
+
+  <tr>
     <td>
-	<input type='checkbox' id='check2' /> 
-    </td>
-    <td>
-      <input id="slide2" type="text" data-slider="true" value="0.4" data-slider-highlight="true" data-slider-theme="volume">
-    </td>
-      
-    </tr>
-    <tr>
-    <td> 
       Total
     </td>
     <td>
-	<input type='checkbox' id='check3' /> 
+        <input type='checkbox' id='check1' />
     </td>
     <td>
-      <input id="slide3" type="text" data-slider="true" value="0.4" data-slider-highlight="true" data-slider-theme="volume">
+      <input id="slidertotal" type="text" data-slider="true" value="0" data-slider-highlight="true" data-slider-theme="volume">
     </td>
-      
-    </tr>
+
+   </tr>
+
+
   </table>
+
 <script>
   $("[data-slider]")
     .each(function () {
@@ -93,37 +87,15 @@
           .html(data.value.toFixed(2));
     });
 
-  $( "#slide1" ).bind( "slider:changed", function( event, data ) {
-	testValue = parseFloat($( "input[name='testWeight']").val());
-	hwValue = parseFloat($( "input[name='hwWeight']").val());
-	$("#slide3").simpleSlider("setValue", 
-		testValue * parseFloat( $("#slide1").val() ) + 
-		hwValue * parseFloat( $("#slide2").val() ) ) ;
-	});
+{% for activity in course.graded_activities_set.all %}
+  var total = document.getElementById('slidertotal').value;
+  var total = parseFloat(total);
+  $( "#slider{{ forloop.counter }}" ).bind( "slider:changed", function( event, data ) {
+	$("#slidertotal").simpleSlider("setValue", 
+		data.value * {{ activity.grade_weight }} + total );   
+  });
 
-  $( "#slide2" ).bind( "slider:changed", function( event, data ) {
-	testValue = parseFloat($( "input[name='testWeight']").val());
-	hwValue = parseFloat($( "input[name='hwWeight']").val());
-	$("#slide3").simpleSlider("setValue", 
-		testValue * parseFloat( $("#slide1").val() ) + 
-		hwValue * parseFloat( $("#slide2").val() ) ) ;
-	});
-
-  $( "input[type='number']" ).change( function() {
-	remainder = 1 - parseFloat( $(this).val( ) ) ;
-	name = $( this ).attr( "name" );
-	$( "input[type='number']" ).each( function() {
-		if( $(this).attr( "name" ) != name ){
-			$(this).val( remainder );
-		}
-	});
-	testValue = parseFloat($( "input[name='testWeight']").val());
-	hwValue = parseFloat($( "input[name='hwWeight']").val());
-	$("#slide3").simpleSlider("setValue", 
-		testValue * parseFloat( $("#slide1").val() ) + 
-		hwValue * parseFloat( $("#slide2").val() ) ) ;
-   });
-
+{% endfor %}
 
   </script>    
 </body>
