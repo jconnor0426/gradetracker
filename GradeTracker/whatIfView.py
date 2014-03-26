@@ -11,6 +11,6 @@ from django.contrib.auth.decorators import login_required
 def whatIfView(request, course_id):
         course = get_object_or_404( Course, pk=course_id )	
         course_grade = 0
-        for each in course.graded_activities_set.all()
-        	course_grade = course_grade + ( each.grade_weight * each.grade_earned )
+        for each in course.graded_activities_set.all():
+                course_grade = course_grade + ( each.grade_weight * each.grade_earned )
         return render(request, 'GradeTracker/whatIfPage.html', { 'course':course, 'sum': course_grade } )
