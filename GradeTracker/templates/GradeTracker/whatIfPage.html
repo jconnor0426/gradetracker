@@ -91,7 +91,12 @@
   var tempsinlge = 0;
   var remainder = 0;
   var total = document.getElementById('slidertotal').value;
-  var total = parseFloat(total);
+  total = parseFloat(total);
+
+  $('#slidertotal').mousedown(function(){
+	temptotal = total;
+	
+  });
 
   function getTotal(){
 	temptotal = 0;
@@ -101,12 +106,6 @@
         {% endfor %}
 	total = temptotal;
   }
-
-  $( "#slidertotal" ).change(function( ) {
-        remainder = 1 - $(this).val();
-	alert("remainder is " + remainder);
-  });
-
 
 {% for activity in course.graded_activities_set.all %}
   $( "#slider{{ forloop.counter }}" ).bind( "slider:changed", function( event, data ) {
