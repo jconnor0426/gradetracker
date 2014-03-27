@@ -33,7 +33,7 @@
         <input type='checkbox' id='checks{{ forloop.counter }}' />
     </td>
     <td>
-      <div id="slider{{ forloop.counter }}" type="text" data-slider="true" value="{{ activity.grade_earned }}" data-slider-highlight="true" data-slider-theme="volume"> </div>
+      <div id="slider{{ forloop.counter }}" > </div>
     </td>
 
    </tr>
@@ -47,7 +47,7 @@
         <input type='checkbox' id='check1' />
     </td>
     <td>
-      <div id="slidertotal" type="text" data-slider="true" value="{{ sum }} " data-slider-highlight="true" data-slider-theme="volume"> </div>
+      <div id="slidertotal" > </div>
     </td>
 
    </tr>
@@ -57,7 +57,13 @@
 
 <script>
   
-  $("[data-slider]").each().slider();
+$(function() {
+    {% for activity in course.graded_activities_set.all %}
+      $( '#slider{{ forloop.counter }}' ).slider();
+    {% endfor %}
+    $( "#slidertotal" ).slider();
+  });
+
 
 /*
   var temptotal = 0;
