@@ -55,7 +55,13 @@
 
   </table>
 
-<script>
+
+</body>
+
+
+{% endblock %}
+
+{% block script %}
   
 $(function() {
     {% for activity in course.graded_activities_set.all %}
@@ -76,17 +82,17 @@ $(function() {
   total = parseFloat(total);
 
   $('#slidertotal').mousedown(function(){
-	
+  
   });
 >>>>>>> 123164f514b8623be509227a42c7e2a414a6688b
 
   function getTotal(){
-	temptotal = 0;
+  temptotal = 0;
         {% for activity in course.graded_activities_set.all %}
-		tempsingle = document.getElementById('slider{{ forloop.counter }}').value * {{ activity.grade_weight }};
+    tempsingle = document.getElementById('slider{{ forloop.counter }}').value * {{ activity.grade_weight }};
                 temptotal += tempsingle;
         {% endfor %}
-	total = temptotal;
+  total = temptotal;
   }
 
 
@@ -98,17 +104,12 @@ $( "#slidertotal" ).bind( "slider:changed", function( event, data ) {
 
 {% for activity in course.graded_activities_set.all %}
   $( "#slider{{ forloop.counter }}" ).bind( "slider:changed", function( event, data ) {
-	event.stopImmediatePropogation();
-	getTotal();
-	$("#slidertotal").simpleSlider("setValue", 
-		total );   
+  event.stopImmediatePropogation();
+  getTotal();
+  $("#slidertotal").simpleSlider("setValue", 
+    total );   
   });
 
 {% endfor %}
 */
-
-  </script>    
-</body>
-
-
 {% endblock %}
