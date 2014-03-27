@@ -64,7 +64,15 @@
   var tempsinlge = 0;
   var remainder = 0;
   var total = document.getElementById('slidertotal').value;
+<<<<<<< HEAD
   var total = parseFloat(total);
+=======
+  total = parseFloat(total);
+
+  $('#slidertotal').mousedown(function(){
+	
+  });
+>>>>>>> 123164f514b8623be509227a42c7e2a414a6688b
 
   function getTotal(){
 	temptotal = 0;
@@ -84,6 +92,7 @@ $( "#slidertotal" ).bind( "slider:changed", function( event, data ) {
 
 {% for activity in course.graded_activities_set.all %}
   $( "#slider{{ forloop.counter }}" ).bind( "slider:changed", function( event, data ) {
+	event.stopImmediatePropogation();
 	getTotal();
 	$("#slidertotal").simpleSlider("setValue", 
 		total );   
