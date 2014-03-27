@@ -32,9 +32,11 @@
     <td>
         <input type='checkbox' id='checks{{ forloop.counter }}' />
     </td>
+    <td>
+	<div id="slider{{ forloop.counter }}" style="width: 20em;"> </div>
+    </td>
        </tr>
 
-      <div id="slider{{ forloop.counter }}" > </div>
 
 
 
@@ -47,14 +49,11 @@
     <td>
         <input type='checkbox' id='check1' />
     </td>
+    <td>
+      <div id="slidertotal" > </div>
+    </td>
       </tr>
     
-      <div id="slidertotal" > </div>
-    
-
- 
-
-
   </table>
 
 
@@ -64,13 +63,43 @@
 {% endblock %}
 
 {% block script %}
+
+  function getTotal(){
+	var total = 0;
+	{% for activity in course.graded_activities_set.all %}
+		total += $('#slider{{forloop.counter}}').slider("option", "value") * {{activity.grade_weight}};
+        {% endfor %}
+	return total;
+  }
+
   
 $(function() {
     {% for activity in course.graded_activities_set.all %}
-      $( '#slider{{ forloop.counter }}' ).slider();
+      $( '#slider{{ forloop.counter }}' ).slider({ min:0.0, max:1.0, step:.01, value : {{activity.grade_earned}}});
     {% endfor %}
-    $( "#slidertotal" ).slider();
+    $( "#slidertotal" ).slider({ min:0.0, max:1.0, step:.01, value:getTotal()});
   });
+
+$('document').ready(function(){
+{% for activity in course.graded_activities_set.all %}
+  $( "#slider{{ forloop.counter }}" ).slider( {change: function(){
+	$('#slidertotal').slider("value", getTotal());
+  }});
+{% endfor %}
+
+
+
+  $('#slidertotal').slider({stop:function(event, ui){
+	var total = getTotal();
+	var diff = ui.value-total;
+	{% for activity in course.graded_activities_set.all %}
+		var temp = $('#slider{{forloop.counter}}').slider("option", "value");
+		$('#slider{{forloop.counter}}').slider("value", temp+diff); 
+	{% endfor %}
+  }});
+
+});
+
 
 
 /*
