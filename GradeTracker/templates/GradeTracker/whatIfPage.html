@@ -94,7 +94,6 @@
   total = parseFloat(total);
 
   $('#slidertotal').mousedown(function(){
-	temptotal = total;
 	
   });
 
@@ -109,6 +108,7 @@
 
 {% for activity in course.graded_activities_set.all %}
   $( "#slider{{ forloop.counter }}" ).bind( "slider:changed", function( event, data ) {
+	event.stopImmediatePropogation();
 	getTotal();
 	$("#slidertotal").simpleSlider("setValue", 
 		total );   
