@@ -3,24 +3,6 @@
 {% load static %}
 
 
-{% block links %}
-  <script src="{% static 'GradeTracker/jquery.min.js' %}"></script> 
-  <script type="text/javascript" src="{% static 'GradeTracker/simple-slider.js' %}"></script>
-  <link rel="stylesheet" type="text/css" href="{% static 'GradeTracker/simple-slider.css' %} "  />
-  <link rel="stylesheet" type="text/css" href="{% static 'GradeTracker/simple-slider-volume.css' %}"  />  
-  
-  <!-- These styles are only used for this page, not required for the slider -->
-  <style>
-  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
-  [class^=slider] { display: inline-block; margin-bottom: 30px; }
-  .output { color: #888; font-size: 14px; padding-top: 1px; margin-left: 5px; vertical-align: top;}
-  h1 { font-size: 20px; }
-  h2 { clear: both; margin: 0; margin-bottom: 5px; font-size: 16px; }
-  p { font-size: 15px; margin-bottom: 30px; }
-  h2:first-of-type { margin-top: 0; }
-  </style>
-{% endblock %}
-
 {% block content %}
 <body>
 
@@ -74,29 +56,15 @@
   </table>
 
 <script>
-  $("[data-slider]")
-    .each(function () {
-      var input = $(this);
-      $("<span>")
-        .addClass("output")
-        .insertAfter($(this));
-    })
-    .bind("slider:ready slider:changed", function (event, data) {
-      $(this)
-        .nextAll(".output:first")
-          .html(data.value.toFixed(2));
-    });
+  
+  $("[data-slider]").each().slider();
 
+/*
   var temptotal = 0;
   var tempsinlge = 0;
   var remainder = 0;
   var total = document.getElementById('slidertotal').value;
-  total = parseFloat(total);
-
-  $('#slidertotal').mousedown(function(){
-	temptotal = total;
-	
-  });
+  var total = parseFloat(total);
 
   function getTotal(){
 	temptotal = 0;
@@ -107,6 +75,13 @@
 	total = temptotal;
   }
 
+
+$( "#slidertotal" ).bind( "slider:changed", function( event, data ) {
+  getTotal();
+  $("#slidertotal").simpleSlider("setValue", 
+    total );   
+  });
+
 {% for activity in course.graded_activities_set.all %}
   $( "#slider{{ forloop.counter }}" ).bind( "slider:changed", function( event, data ) {
 	getTotal();
@@ -115,6 +90,7 @@
   });
 
 {% endfor %}
+*/
 
   </script>    
 </body>
