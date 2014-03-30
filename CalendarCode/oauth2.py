@@ -15,6 +15,9 @@ class OAuthDeviceFlow():
     _token_type = None
     _expires = 10
     _refresh_token = None
+    _device_code = None
+    _expires_in = None
+    _interval = None
 
     def __init__(self, code_uri, token_uri, client_id, client_secret, scope):
         self._code_uri = code_uri
@@ -31,36 +34,13 @@ class OAuthDeviceFlow():
         #Testing Console Code
         print "User code:", response['user_code']
         print
-        print "Please go to: ", response['verification_url']
+        print "Please go to " + str(response['verification_url'])
         print
         print "You will be prompted for authorization."
-        print
-        print "Waiting for authorization: "
-        device_code = response['device_code']
-        expires_in = int(response['expires_in'])
-        interval = int(response['interval'])
-        start = time.time()
-        while time.time() - start < expires_in:
-            time.sleep(interval)
-            r = requests.post(self._token_uri,
-                data=dict(client_id=self._client_id,
-                          client_secret=self._client_secret,
-                          code=device_code,
-                          grant_type='http://oauth.net/grant_type/device/1.0'))
-            r.raise_for_status()  #Raises stored :class:`HTTPError`, if one occurred.
-            response = json.loads(r.content)
-            # Continue if auth pending, break on error, process if no error.
-            if response.get("error") == "authorization_pending":
-                print '.'
-                continue
-            elif response.get("error"):
-                raise AuthorizationException("Error: " + response['error'])
-            else:
-                self._access_token = response['access_token']
-                self._token_type = response['token_type']
-                self._expires = int(response['expires_in']) + time.time()
-                self._refresh_token = response['refresh_token']
-                break
+
+        self._device_code = response['device_code']
+        self._expires_in = int(response['expires_in'])
+        self._interval = int(response['interval'])
 
     def refresh_token(self):
         r = requests.post(self._token_uri,

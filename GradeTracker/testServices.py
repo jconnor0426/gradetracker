@@ -14,7 +14,7 @@ def googleTest( request ):
 	# Create a client class which will make HTTP requests with Google Docs server.
 	client = gdata.docs.service.DocsService()
 	# Authenticate using your Google Docs email address and password.
-	client.ClientLogin('alexdmail15@gmail.com', 'vpmqesd43')
+	client.ClientLogin('j.connor.mclaughlin@gmail.com', 'dogasshungonwall#2011')
 
 	# Query the server for an Atom feed containing a list of your documents.
 	documents_feed = client.GetDocumentListFeed()

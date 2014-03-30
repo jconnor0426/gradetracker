@@ -125,7 +125,8 @@ INSTALLED_APPS = (
     'polls',
     'GradeTracker',
     'django.contrib.admin',
-    'djangogcal'
+    'djangogcal',
+    'googleapi'
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
