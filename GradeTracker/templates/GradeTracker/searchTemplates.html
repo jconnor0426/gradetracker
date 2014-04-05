@@ -9,9 +9,12 @@
 
 {% if results_page %}
 	<h1>Results</h1>
-	{%if results %}
-	{{ results }}
-	{% endif %}
+	<table>
+	{%for result in  results %}
+		<tr> <td>{{ result.student.Institution }} </td><td> {{result.course_code }} </td><td>{{result.course_name}}</td><td>ADD</td></tr>
+	{% empty %}
+		<tr>NO RESULTS </tr>
+	{% endfor %}
 {% endif %}
 
 {% endblock %}
