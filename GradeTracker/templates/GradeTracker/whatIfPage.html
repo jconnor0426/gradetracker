@@ -5,9 +5,9 @@
 
 {% block content %}
 <body>
-
+	
 	<h1>Activities</h1>
-	<table>
+	<table style="display: inline-block, float:right">
       <tr> 
             <td>Activity</td>
             <td>Activity Weight </td>
@@ -17,11 +17,36 @@
 		<td>{{ activity.activity_name }}</td>
 		<td>
 			<input type="number" name="{{activity.activity_name}}-weight" min="0" max="1"
-				value="{{ activity.grade_weight }}" step=".05"/>
+				value="{{ activity.grade_weight }}" step=".05" readonly/>
 		</td>
 	</tr>
+
 	{% endfor %}
 	</table>
+
+	{% for activity in course.graded_activities_set.all %}
+	<table style="display: inline-block">
+		<tr>
+			<td>{{ activity.activity_name }} SubActivity</td>
+			<td>Activity Weight</td>
+		</tr>
+		{% for subactivity in activity.subgraded_activities_set.all %}
+		<tr>
+	                <td>{{ subactivity.subactivity_name }}</td>
+        	        <td>
+                	        <input type="number" name="{{subactivity.subactivity_name}}-weight" min="0" max="1"
+                                value="{{ subactivity.subgrade_weight }}" step=".05" readonly/>
+	                </td>
+		</tr>
+		{% empty %}
+		<tr>
+			<td>None</td>
+			<td><input type="text" name="" value="N/A" readonly/></td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endfor %}
+
 
   <table>
   {% for activity in course.graded_activities_set.all %}
@@ -36,9 +61,6 @@
 	<div id="slider{{ forloop.counter }}" style="width: 20em;"> </div>
     </td>
        </tr>
-
-
-
 
   {% endfor %}
 
