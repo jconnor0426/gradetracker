@@ -22,11 +22,9 @@ def grades(request, student_id, course_id):
 
 @login_required
 def editGradedActivity( request, activity_id=None ):
-    
-    ##Grab the student from the user object, if there is none return invalid login
     try:
         student = Student.objects.filter(user=request.user)[0]
-    except: 
+    except:
         return render(request, 'GradeTracker/invalid_login.html')
 
     activity = get_object_or_404( Graded_Activities, pk=activity_id ) #Get the Graded_Activity to edit
