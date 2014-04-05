@@ -15,6 +15,48 @@
 	{% empty %}
 		<tr>NO RESULTS </tr>
 	{% endfor %}
+	</table>
+
+	<div id="accordion" >
+{% for course in results %}
+   <h3><a href="/GT/{{ student.id }}/{{ course.id }}/"> {{ course.course_name }} </a></h3>
+   <div>
+   	<ul>
+		<ol><span style="margin-left:-30px"><strong>Activties:</strong></span>
+		{% for activity in course.graded_activities_set.all %}
+			<li style="margin-left:-10px">{{ activity.activity_name }}</li>
+			{% if activity.subgraded_activities_set.all %}
+				<ol><strong>Subactivities:</strong>
+				{% for subactivity in activity.subgraded_activities_set.all %}
+					{% if subactivity.main_category == activity %}
+						<li style="margin-left:20px">{{ subactivity.subactivity_name }}</li>
+					{% endif %}
+					{% empty %}
+					<li>None</li>
+				{% endfor %}
+			{% endif %}
+			</ol>
+		{% empty %}
+			<li>None</li>
+		{% endfor %}
+		</ol>
+		<li>
+			<a href="/GT/{{ student.id }}/{{ course.id }}/">Add Activities</a>
+		</li>
+		<li>
+			<a href="/GT/editcourse/{{ course.id }}/">Edit Course Information</a>
+		</li>
+		<li>
+			<div><a href="/GT/deleteCourse/{{ course.id }}/" > Delete Course </a></div>
+		</li>
+		<li>
+			<div><a href="/GT/whatIf/{{ course.id }}/" > What If Analysis </a></div>
+		</li>
+	</ul>
+    </div>
+{% endfor %}
+</div>
+
 {% endif %}
 
 {% endblock %}
