@@ -23,6 +23,9 @@ from GradeTracker.subGradedActivityView import addSub, deleteSubGradedActivity, 
 
 #User Features Page
 from GradeTracker.whatIfView import whatIfView
+
+#Template Search Engine 
+from GradeTracker.courseTemplatesView import searchTemplateView, addTemplateView
 #from GradeTracker.testServices import googleTest
 
 
