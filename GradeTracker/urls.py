@@ -35,6 +35,7 @@ urlpatterns = patterns('',
 
     #Templating System
     url(r'^searchtemplate/$', views.searchTemplateView, name="searchTemplate"),
+    url(r'^addtemplate/(?P<course_id>\d+)/$', views.addTemplateView, name='addTmplate'),
 
     #user auth urls --> login and logout
     url(r'^accounts/login/$', views.login, name='login'),
