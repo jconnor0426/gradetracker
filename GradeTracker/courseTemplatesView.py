@@ -31,5 +31,7 @@ def addTemplateView( request, course_id ):
 	#Create a new Course Object for the current user
 	newCourse = student.course_set.create( course_code=courseToCopy.course_code, course_name=courseToCopy.course_name )
 	#Create each activity in the course object
+	for oldActivity in courseToCopy.graded_activities_set.all():
+		newCourse.graded_activities_set.create( activity_name=oldActivity.activity_name , grade_weight=oldActivity.grade_weight , grade_due_date=oldActivity.grade_due_date)
 	return HttpResponseRedirect('/GT/' + str(student.id) ) # Redirect after POST
 
