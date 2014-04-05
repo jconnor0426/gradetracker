@@ -8,7 +8,7 @@ from GradeTracker.forms import courseAdd, activityAdd, subactivityAdd, MyRegistr
 
 
 @login_required
-def searchTemplateView:
+def searchTemplateView( request ):
     results = []
     if request.method == 'POST': # If the form has been submitted...
         form = templateSearch(request.POST) # A form bound to the POST data
@@ -22,4 +22,4 @@ def searchTemplateView:
         form = templateSearch()
     return render(request, 'GradeTracker/searchTemplates.html', {'results': results  , 'form': form })
 
-def addTemplateView:
+def addTemplateView( request ):
