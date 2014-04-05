@@ -22,4 +22,4 @@ def searchTemplateView( request ):
         form = templateSearch()
     return render(request, 'GradeTracker/searchTemplates.html', {'results': results  , 'form': form })
 
-def addTemplateView( request ):
+#def addTemplateView( request ):
