@@ -7,9 +7,11 @@
 <input type="submit" value="Submit" />
 </form>
 
-{% if results %}
-<h1>Results</h1>
-{{ results }}
+{% if results_page %}
+	<h1>Results</h1>
+	{%if results %}
+	{{ results }}
+	{% endif %}
 {% endif %}
 
 {% endblock %}
