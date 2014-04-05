@@ -33,6 +33,8 @@ urlpatterns = patterns('',
     #Google Services 
     url(r'^google/$', views.googleTest, name="googleTest"),
 
+    #Templating System
+    url(r'^searchtemplate/$', views.searchTemplate, name="searchTemplate"),
 
     #user auth urls --> login and logout
     url(r'^accounts/login/$', views.login, name='login'),

@@ -39,6 +39,9 @@ class subactivityAdd(forms.Form):
     subactivityName = forms.CharField(max_length=200)
     subactivityWeight = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
 
+class templateSearch(forms.Form):
+    courseCode = forms.CharField(max_length=200)
+
 #UserCreationForm already created in auth directory
 class MyRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
