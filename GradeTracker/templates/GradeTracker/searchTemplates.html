@@ -1,0 +1,15 @@
+{% extends "GradeTracker/basepage.html" %}
+{% block content %}
+
+<h1>Search </h1>
+<form action="/GT/searchtemplate/" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+
+{% if results %}
+<h1>Results</h1>
+{{ results }}
+{% endif %}
+
+{% endblock %}
