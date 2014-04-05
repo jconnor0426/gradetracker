@@ -101,6 +101,8 @@ def googleTest(request):
     subprocess.Popen(["nohup","python","/home/jconnor/GradeTracker/gradetracker/GradeTracker/spawnedproc.py",argumentstring])
     print("done")
 
+
+
     google = {'oauth':oauth._user_code}
         
     return render(request, "GradeTracker/calendar.html", google) 
