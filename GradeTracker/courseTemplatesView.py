@@ -29,7 +29,7 @@ def addTemplateView( request, course_id ):
 	courseToCopy = get_object_or_404(Course, pk=course_id )
 	student = Student.objects.filter( user=request.user )[0]
 	#Create a new Course Object for the current user
-	newCourse = student.course_set.create( course_id=courseToCopy.id, course_name=courseToCopy.course_name )
+	newCourse = student.course_set.create( course_code=courseToCopy.course_code, course_name=courseToCopy.course_name )
 	#Create each activity in the course object
 	return HttpResponseRedirect('/GT/' + str(student.id) ) # Redirect after POST
 
