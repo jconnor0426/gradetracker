@@ -17,9 +17,9 @@
 	{% endfor %}
 	</table>
 
-	<div id="accordion" >
+<div id="accordion" >
 {% for course in results %}
-   <h3><a href="/GT/{{ student.id }}/{{ course.id }}/"> {{ course.course_name }} </a></h3>
+   <h3>{{ result.student.Institution }} : {{result.course_code }} : {{result.course_name}}</h3>
    <div>
    	<ul>
 		<ol><span style="margin-left:-30px"><strong>Activties:</strong></span>
@@ -42,15 +42,6 @@
 		</ol>
 		<li>
 			<a href="/GT/{{ student.id }}/{{ course.id }}/">Add Activities</a>
-		</li>
-		<li>
-			<a href="/GT/editcourse/{{ course.id }}/">Edit Course Information</a>
-		</li>
-		<li>
-			<div><a href="/GT/deleteCourse/{{ course.id }}/" > Delete Course </a></div>
-		</li>
-		<li>
-			<div><a href="/GT/whatIf/{{ course.id }}/" > What If Analysis </a></div>
 		</li>
 	</ul>
     </div>
