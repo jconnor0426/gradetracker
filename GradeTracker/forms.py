@@ -36,8 +36,9 @@ class activityAdd(forms.Form):
     activityWeight = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
 
 class subactivityAdd(forms.Form):
-    subactivityName = forms.CharField(max_length=200)
-    subactivityWeight = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
+    subactivity_Name = forms.CharField(max_length=200)
+    subactivity_Weight = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
+    subactivity_Grade_Earned = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
 
 class templateSearch(forms.Form):
     courseCode = forms.CharField(max_length=200)

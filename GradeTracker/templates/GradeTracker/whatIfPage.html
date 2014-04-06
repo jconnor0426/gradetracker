@@ -6,7 +6,7 @@
 {% block content %}
 <body>
 	
-	<h1>Activities</h1>
+	<h1>Activities for {{ course.course_name }}</h1>
 	<table style="display: inline-block, float:right">
       <tr> 
             <td>Activity</td>
@@ -47,12 +47,12 @@
 	</table>
 	{% endfor %}
 
-
-  <table>
+  
   {% for activity in course.graded_activities_set.all %}
+  <table>
   <tr>
-    <td>
-      {{ activity.activity_name }}
+    <td width="20%">
+      <strong>{{ activity.activity_name }}</strong>
     </td>
     <td>
         <input type='checkbox' id='checks{{ forloop.counter }}' />
@@ -60,19 +60,46 @@
     <td>
 	<div id="slider{{ forloop.counter }}" style="width: 20em;"> </div>
     </td>
-       </tr>
+    <td>
+	<input type="number" id="grade{{ forloop.counter }}" name="" min="0" max="1"
+	value="{{ activity.grade_earned }}" step=".05" readonly/>
+    </td>
 
+	{% for subactivity in activity.subgraded_activities_set.all %}
+	  <tr>
+	    <td width="20%">
+	      {{ subactivity.subactivity_name }}
+	    </td>
+	    <td>
+	        <input type='checkbox' id='check{{ activity.activity_name }}{{ forloop.counter }}' />
+	    </td>
+	    <td>
+	        <div id="subslider{{activity.id}}{{ forloop.counter }}" style="width: 20em;"> </div>
+	    </td>
+	    <td>
+	        <input type="number" id="grade{{activity.id}}{{forloop.counter}}" name="" min="0" max="1"
+	        value="{{ subactivity.subgrade_earned }}" step=".05" readonly/>
+	    </td>
+	  </tr>
+	{% endfor %}
+   </tr>
+  </table>
   {% endfor %}
 
+  <table>
   <tr>
-    <td>
+    <td width="15%">
       Total
     </td>
     <td>
         <input type='checkbox' id='check1' />
     </td>
-    <td>
+    <td class="total">
       <div id="slidertotal" > </div>
+    </td>
+    <td>
+        <input type="number" id="totalgrade" name="" min="0" max="1"
+        value={{ sum }} step=".05" readonly"/>
     </td>
       </tr>
     
@@ -98,6 +125,11 @@
 $(function() {
     {% for activity in course.graded_activities_set.all %}
       $( '#slider{{ forloop.counter }}' ).slider({ min:0.0, max:1.0, step:.01, value : {{activity.grade_earned}}});
+
+    	{% for subactivity in activity.subgraded_activities_set.all %}
+		$('#subslider{{activity.id}}{{ forloop.counter }}').slider({ min:0.0, max:1.0, step:.01, value: {{subactivity.subgrade_earned}}});
+	{% endfor %}
+	
     {% endfor %}
     $( "#slidertotal" ).slider({ min:0.0, max:1.0, step:.01, value:getTotal()});
   });
@@ -106,7 +138,22 @@ $('document').ready(function(){
 {% for activity in course.graded_activities_set.all %}
   $( "#slider{{ forloop.counter }}" ).slider( {change: function(){
 	$('#slidertotal').slider("value", getTotal());
+	var val = $('#slider{{ forloop.counter }}').slider("option", "value");
+	document.getElementById("grade{{ forloop.counter }}").value=val;
+        var val = $('#slidertotal').slider("option", "value");
+        document.getElementById("totalgrade").value=val;
   }});
+{% endfor %}
+
+
+$('document').ready(function(){
+{% for activity in course.graded_activities_set.all %}
+  {% for subactivity in activity.subgraded_activities_set.all %}
+    $( "#subslider{{activity.id}}{{ forloop.counter }}" ).slider( {change: function(){
+          var val = $('#subslider{{activity.id}}{{ forloop.counter }}').slider("option", "value");
+          document.getElementById("grade{{activity.id}}{{ forloop.counter }}").value=val;
+    }});
+  {% endfor %}
 {% endfor %}
 
 
@@ -118,51 +165,10 @@ $('document').ready(function(){
 		var temp = $('#slider{{forloop.counter}}').slider("option", "value");
 		$('#slider{{forloop.counter}}').slider("value", temp+diff); 
 	{% endfor %}
+        var val = $('#slidertotal').slider("option", "value");
+        document.getElementById("totalgrade").value=val;
   }});
 
 });
 
-
-
-/*
-  var temptotal = 0;
-  var tempsinlge = 0;
-  var remainder = 0;
-  var total = document.getElementById('slidertotal').value;
-<<<<<<< HEAD
-  var total = parseFloat(total);
-=======
-  total = parseFloat(total);
-
-  $('#slidertotal').mousedown(function(){
-  
-  });
->>>>>>> 123164f514b8623be509227a42c7e2a414a6688b
-
-  function getTotal(){
-  temptotal = 0;
-        {% for activity in course.graded_activities_set.all %}
-    tempsingle = document.getElementById('slider{{ forloop.counter }}').value * {{ activity.grade_weight }};
-                temptotal += tempsingle;
-        {% endfor %}
-  total = temptotal;
-  }
-
-
-$( "#slidertotal" ).bind( "slider:changed", function( event, data ) {
-  getTotal();
-  $("#slidertotal").simpleSlider("setValue", 
-    total );   
-  });
-
-{% for activity in course.graded_activities_set.all %}
-  $( "#slider{{ forloop.counter }}" ).bind( "slider:changed", function( event, data ) {
-  event.stopImmediatePropogation();
-  getTotal();
-  $("#slidertotal").simpleSlider("setValue", 
-    total );   
-  });
-
-{% endfor %}
-*/
 {% endblock %}
