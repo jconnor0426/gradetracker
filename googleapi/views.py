@@ -35,6 +35,7 @@ def index(request):
     FLOW.params['state'] = xsrfutil.generate_token(settings.SECRET_KEY,
                                                    request.user)
     authorize_url = FLOW.step1_get_authorize_url()
+    print authorize_url
     return HttpResponseRedirect(authorize_url)
   else:
     http = httplib2.Http()
