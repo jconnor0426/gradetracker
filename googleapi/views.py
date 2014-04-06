@@ -55,9 +55,7 @@ def index(request):
       #                             userId='me').execute()
     #logging.info(activitylist)
 
-  return render_to_response('plus/welcome.html', {
-                'activitylist': activitylist,
-                })
+  return render_to_response('plus/welcome.html' )
 
 
 @login_required
