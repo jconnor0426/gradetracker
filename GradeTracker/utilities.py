@@ -10,22 +10,22 @@ def calculateClassGrade( course ):
   
 	#Go Through all the activities just add weight times grade earned
 	#Set a total, to be zero
-	classGrade = 0
+	classGrade = 0.0
 	#Go through all the activities
 	for activity in course.graded_activities_set.all():
 		if  not activity.grade_earned:
-			activity.grade_earned = 0
+			activity.grade_earned = 0.0
 			activity.save()
 		classGrade += activity.grade_weight * activity.grade_earned
 	return classGrade
 
 def activityGradeFromSubActivities( activity ):
-	activitygrade = 0
+	activitygrade = 0.0
 	for each in activity.subgraded_activities_set.all():
 		if each.subgrade_earned:
 			activitygrade += each.subgrade_weight * each.subgrade_earned
 		else:
-			each.subgrade_earned = 0
+			each.subgrade_earned = 0.0
 			each.save()
 	activity.grade_earned = activitygrade
 	activity.save()     
