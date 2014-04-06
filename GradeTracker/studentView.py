@@ -5,22 +5,18 @@ from django.core.context_processors import csrf
 #cross-site request forgery --> method for people hacking into website
 from GradeTracker.models import Student, Course, Graded_Activities, SubGraded_Activities, Templates
 from GradeTracker.forms import courseAdd, activityAdd, subactivityAdd, MyRegistrationForm
+from GradeTracker.utilities import calculateClassGrade
 
 ## Page that shows the student overview ##
 def detail(request, student_id):
     student1 = get_object_or_404(Student, pk=student_id)
-    courses = Course.objects.filter(student=student1.id)
-    activities = []
-    subactivities = []
-    for activ in Graded_Activities.objects.all():
-        for course in courses:
-            if course == activ.course:
-                activities.append(activ)
-    for activity in activities:
-        for subactiv in SubGraded_Activities.objects.all():
-            if activity == subactiv.main_category:
-                subactivities.append(subactiv)
+    courses = student1.course_set.all()
 
+    #Caluculate each Classes's Grade
+    classGrades = []
+    for course in courses:
+        classGrades.append( calculateClassGrade( course ) )
+             
     if request.method == 'POST': # If the form has been submitted...
         form = courseAdd(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
@@ -31,7 +27,7 @@ def detail(request, student_id):
     else:
         form = courseAdd() # An unbound form
     return render(request, 'GradeTracker/detail.html', {'student': student1 , 'form': form, \
-        'courses':courses, 'activities':activities, 'subactivities':subactivities})
+        'courses':courses, 'activities':activities, 'subactivities':subactivities, 'grades':classGrades })
 
 def editCourse( request, course_id=None ):
     
