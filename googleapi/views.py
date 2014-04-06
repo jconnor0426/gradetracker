@@ -44,7 +44,7 @@ def index(request):
     http = credential.authorize(http)
     service = build('calendar', 'v3', http=http)
     calendar = service.events().list(calendarId='primary')
-    print service
+    print calendar
     #print calendar['summary']
 
     #service = build("plus", "v1", http=http)
