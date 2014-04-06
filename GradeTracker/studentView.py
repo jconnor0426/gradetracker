@@ -27,7 +27,7 @@ def detail(request, student_id):
     else:
         form = courseAdd() # An unbound form
     return render(request, 'GradeTracker/detail.html', {'student': student1 , 'form': form, \
-        'courses':courses, 'activities':activities, 'subactivities':subactivities, 'grades':classGrades })
+        'courses':courses,  'grades':classGrades })
 
 def editCourse( request, course_id=None ):
     
