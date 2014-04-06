@@ -23,10 +23,8 @@ CLIENT_SECRETS = os.path.join(os.path.dirname(__file__), 'client_secrets.json')
 
 FLOW = flow_from_clientsecrets(
     CLIENT_SECRETS,
-    scope=[
+    scope=
       'https://www.googleapis.com/auth/calendar',
-      'https://www.googleapis.com/auth/calendar.readonly',
-    ],
     redirect_uri='http://imgkee.io:8000/goog/oauth2callback/')
 
 
@@ -43,7 +41,14 @@ def index(request):
     http = httplib2.Http()
     http = credential.authorize(http)
     service = build('calendar', 'v3', http=http)
-    calendar = service.events().list(calendarId='primary').execute()
+    try:
+      calendar = service.events().list(calendarId='primary').execute()
+    except:
+      FLOW.params['state'] = xsrfutil.generate_token(settings.SECRET_KEY,
+                                                   request.user)
+      authorize_url = FLOW.step1_get_authorize_url()
+      return HttpResponseRedirect(authorize_url)
+
 
     #print calendar['summary']
 
