@@ -23,7 +23,10 @@ CLIENT_SECRETS = os.path.join(os.path.dirname(__file__), 'client_secrets.json')
 
 FLOW = flow_from_clientsecrets(
     CLIENT_SECRETS,
-    scope='https://www.googleapis.com/auth/plus.me',
+    scope=[
+      'https://www.googleapis.com/auth/calendar',
+      'https://www.googleapis.com/auth/calendar.readonly',
+    ],
     redirect_uri='http://imgkee.io:8000/goog/oauth2callback/')
 
 
@@ -39,11 +42,18 @@ def index(request):
   else:
     http = httplib2.Http()
     http = credential.authorize(http)
-    service = build("plus", "v1", http=http)
-    activities = service.activities()
-    activitylist = activities.list(collection='public',
-                                   userId='me').execute()
-    logging.info(activitylist)
+     service = discovery.build('calendar', 'v3', http=http)
+
+  try:
+    print "Success! Now add code here."
+
+  except client.AccessTokenRefreshError:
+    print ("The credentials have been revoked or expired, please re-run the application to re-authorize")
+    #service = build("plus", "v1", http=http)
+    #activities = service.activities()
+    #activitylist = activities.list(collection='public',
+      #                             userId='me').execute()
+    #logging.info(activitylist)
 
     return render_to_response('plus/welcome.html', {
                 'activitylist': activitylist,
