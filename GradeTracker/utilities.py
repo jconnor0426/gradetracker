@@ -13,7 +13,7 @@ def calculateClassGrade( course ):
 	classGrade = 0
 	#Go through all the activities
 	for activity in course.graded_activities_set.all():
-		if ! activity.grade_earned:
+		if  not activity.grade_earned:
 			activity.grade_earned = 0
 			activity.save()
 		classGrade += activity.grade_weight * activity.grade_earned
