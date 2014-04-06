@@ -15,7 +15,7 @@ def detail(request, student_id):
     #Caluculate each Classes's Grade
     classGrades = []
     for course in courses:
-        classGrades.append( calculateClassGrade( course ) )
+        classGrades.append( (course, calculateClassGrade( course ) ) )
              
     if request.method == 'POST': # If the form has been submitted...
         form = courseAdd(request.POST) # A form bound to the POST data
