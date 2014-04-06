@@ -17,7 +17,7 @@
 {% for course in courses %}
    <h3><a href="/GT/{{ student.id }}/{{ course.id }}/"> {{ course.course_name }} </a></h3>
    <div>
-   	<h2>Grade: {{ grades}} </h2>
+   	<h2>Grade: {{ grades.{{forloop.counter}} }} </h2>
    	<ul>
 		<ol><span style="margin-left:-30px"><strong>Activties:</strong></span>
 		{% for activity in course.graded_activities_set.all %}
