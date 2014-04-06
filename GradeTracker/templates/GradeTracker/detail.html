@@ -18,7 +18,7 @@
    	<ul>
 		<ol><span style="margin-left:-30px"><strong>Activties:</strong></span>
 		{% for activity in course.graded_activities_set.all %}
-			<li style="margin-left:-10px">{{ activity.activity_name }}</li>
+			<li style="margin-left:-10px">{{ activity.activity_name }} - {{ activity.grade_weight * 100 }}</li>
 			{% if activity.subgraded_activities_set.all %}
 				<ol><strong>Subactivities:</strong>
 				{% for subactivity in activity.subgraded_activities_set.all %}
