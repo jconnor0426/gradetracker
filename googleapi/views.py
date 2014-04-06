@@ -42,7 +42,7 @@ def index(request):
   else:
     http = httplib2.Http()
     http = credential.authorize(http)
-     service = discovery.build('calendar', 'v3', http=http)
+    service = discovery.build('calendar', 'v3', http=http)
 
   try:
     print "Success! Now add code here."
