@@ -139,8 +139,22 @@ $('document').ready(function(){
 {% for activity in course.graded_activities_set.all %}
     $( "#slider{{activity.id}}" ).slider( {change: function(){
     	  $('#slidertotal').slider("value", getTotal());
-  	  var val = $('#slider{{ activity.id }}').slider("option", "value");
-	  document.getElementById("grade{{ activity.id }}").value=val;
+  	  var valtop = $('#slider{{ activity.id }}').slider("option", "value");
+	  var gradetop = document.getElementById("grade{{ activity.id }}").value;
+	  document.getElementById("grade{{ activity.id }}").value=valtop;
+
+	  {% for subactivity in activity.subgraded_activities_set.all %}
+	    var gradesub =  document.getElementById("subgrade{{activity.id}}{{forloop.counter}}").value;
+	    var diff = (valtop - gradetop);
+	    var weight = {{subactivity.subgrade_weight}};
+	    var a = diff * weight;
+	    var b = a * (1/weight);
+	    var subval = document.getElementById('subgrade{{activity.id}}{{forloop.counter}}').value;
+	    var subtotal = subval - b;
+	    $(subslider{{activity.id}}{{forloop.counter}}).slider("value", subtotal);
+	    document.getElementById('subgrade{{activity.id}}{{forloop.counter}}').value=subslider;
+	  {% endfor %}
+
           var valtotal = $('#slidertotal').slider("option", "value");
           document.getElementById("totalgrade").value=valtotal;
     }});
@@ -148,7 +162,7 @@ $('document').ready(function(){
 
   {% for activity in course.graded_activities_set.all %}
     {% for subactivity in activity.subgraded_activities_set.all %}
-	$('#subslider{{activity.id}}{{forloop.counter}}').slider( {change: function(){
+	$('#subslider{{activity.id}}{{forloop.counter}}').slider( {stop: function(event, ui){
 	    var val = $('#subslider{{activity.id}}{{forloop.counter}}').slider("option", "value");
 	    var grade = document.getElementById('subgrade{{activity.id}}{{forloop.counter}}').value;
 	    var weight = {{subactivity.subgrade_weight}};
