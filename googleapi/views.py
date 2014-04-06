@@ -44,7 +44,7 @@ def index(request):
     http = credential.authorize(http)
     service = build('calendar', 'v3', http=http)
     calendar = service.events().list(calendarId='primary')
-    print calendar
+
     #print calendar['summary']
 
     #service = build("plus", "v1", http=http)
@@ -52,7 +52,7 @@ def index(request):
     #activitylist = activities.list(collection='public',
      #                              userId='me').execute()
     #logging.info(activitylist)
-    activitylist = []
+    activitylist = calendar
 
   return render_to_response('plus/welcome.html', {"activitylist":activitylist} )
 
