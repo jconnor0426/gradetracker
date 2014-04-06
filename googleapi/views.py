@@ -46,11 +46,12 @@ def index(request):
     #calendar = service.calendars().get(calendarId='primary').execute()
     #print calendar['summary']
 
-    service = build("plus", "v1", http=http)
-    activities = service.activities()
-    activitylist = activities.list(collection='public',
-                                   userId='me').execute()
-    logging.info(activitylist)
+    #service = build("plus", "v1", http=http)
+    #activities = service.activities()
+    #activitylist = activities.list(collection='public',
+     #                              userId='me').execute()
+    #logging.info(activitylist)
+    activitylist = []
 
   return render_to_response('plus/welcome.html', {"activitylist":activitylist} )
 
