@@ -42,17 +42,17 @@ def index(request):
   else:
     http = httplib2.Http()
     http = credential.authorize(http)
-    service = build('calendar', 'v3', http=http)
-    calendar = service.calendars().get(calendarId='primary').execute()
-    print calendar['summary']
+    #service = build('calendar', 'v3', http=http)
+    #calendar = service.calendars().get(calendarId='primary').execute()
+    #print calendar['summary']
 
-    #service = build("plus", "v1", http=http)
-    #activities = service.activities()
-    #activitylist = activities.list(collection='public',
-      #                             userId='me').execute()
-    #logging.info(activitylist)
+    service = build("plus", "v1", http=http)
+    activities = service.activities()
+    activitylist = activities.list(collection='public',
+                                   userId='me').execute()
+    logging.info(activitylist)
 
-  return render_to_response('plus/welcome.html' )
+  return render_to_response('plus/welcome.html', {"activitylist":activitylist} )
 
 
 @login_required
