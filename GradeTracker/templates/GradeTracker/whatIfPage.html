@@ -34,8 +34,9 @@
 		<tr>
 	                <td>{{ subactivity.subactivity_name }}</td>
         	        <td>
-                	        <input type="number" name="{{subactivity.subactivity_name}}-weight" min="0" max="1"
-                                value="{{ subactivity.subgrade_weight }}" step=".05" readonly/>
+                	        <input type="number" id="subweight{{activity.id}}{{forloop.counter}} 
+				name="{{subactivity.subactivity_name}}-weight" min="0" max="1" 
+				value="{{ subactivity.subgrade_weight }}" step=".05" readonly/>
 	                </td>
 		</tr>
 		{% empty %}
@@ -58,10 +59,10 @@
         <input type='checkbox' id='checks{{ forloop.counter }}' />
     </td>
     <td>
-	<div id="slider{{ forloop.counter }}" style="width: 20em;"> </div>
+	<div id="slider{{activity.id}}" style="width: 20em;"> </div>
     </td>
     <td>
-	<input type="number" id="grade{{ forloop.counter }}" name="" min="0" max="1"
+	<input type="number" id="grade{{activity.id}}" name="" min="0" max="1"
 	value="{{ activity.grade_earned }}" step=".05" readonly/>
     </td>
 
@@ -77,7 +78,7 @@
 	        <div id="subslider{{activity.id}}{{ forloop.counter }}" style="width: 20em;"> </div>
 	    </td>
 	    <td>
-	        <input type="number" id="grade{{activity.id}}{{forloop.counter}}" name="" min="0" max="1"
+	        <input type="number" id="subgrade{{activity.id}}{{forloop.counter}}" name="" min="0" max="1"
 	        value="{{ subactivity.subgrade_earned }}" step=".05" readonly/>
 	    </td>
 	  </tr>
@@ -116,7 +117,7 @@
   function getTotal(){
 	var total = 0;
 	{% for activity in course.graded_activities_set.all %}
-		total += $('#slider{{forloop.counter}}').slider("option", "value") * {{activity.grade_weight}};
+		total += $('#slider{{activity.id}}').slider("option", "value") * {{activity.grade_weight}};
         {% endfor %}
 	return total;
   }
@@ -124,7 +125,7 @@
   
 $(function() {
     {% for activity in course.graded_activities_set.all %}
-      $( '#slider{{ forloop.counter }}' ).slider({ min:0.0, max:1.0, step:.01, value : {{activity.grade_earned}}});
+      $( '#slider{{activity.id}}' ).slider({ min:0.0, max:1.0, step:.01, value : {{activity.grade_earned}}});
 
     	{% for subactivity in activity.subgraded_activities_set.all %}
 		$('#subslider{{activity.id}}{{ forloop.counter }}').slider({ min:0.0, max:1.0, step:.01, value: {{subactivity.subgrade_earned}}});
@@ -136,34 +137,37 @@ $(function() {
 
 $('document').ready(function(){
 {% for activity in course.graded_activities_set.all %}
-  $( "#slider{{ forloop.counter }}" ).slider( {change: function(){
-	$('#slidertotal').slider("value", getTotal());
-	var val = $('#slider{{ forloop.counter }}').slider("option", "value");
-	document.getElementById("grade{{ forloop.counter }}").value=val;
-        var val = $('#slidertotal').slider("option", "value");
-        document.getElementById("totalgrade").value=val;
-  }});
-{% endfor %}
-
-
-$('document').ready(function(){
-{% for activity in course.graded_activities_set.all %}
-  {% for subactivity in activity.subgraded_activities_set.all %}
-    $( "#subslider{{activity.id}}{{ forloop.counter }}" ).slider( {change: function(){
-          var val = $('#subslider{{activity.id}}{{ forloop.counter }}').slider("option", "value");
-          document.getElementById("grade{{activity.id}}{{ forloop.counter }}").value=val;
+    $( "#slider{{activity.id}}" ).slider( {change: function(){
+    	  $('#slidertotal').slider("value", getTotal());
+  	  var val = $('#slider{{ activity.id }}').slider("option", "value");
+	  document.getElementById("grade{{ activity.id }}").value=val;
+          var valtotal = $('#slidertotal').slider("option", "value");
+          document.getElementById("totalgrade").value=valtotal;
     }});
-  {% endfor %}
 {% endfor %}
 
+  {% for activity in course.graded_activities_set.all %}
+    {% for subactivity in activity.subgraded_activities_set.all %}
+	$('#subslider{{activity.id}}{{forloop.counter}}').slider( {change: function(){
+	    var val = $('#subslider{{activity.id}}{{forloop.counter}}').slider("option", "value");
+	    var grade = document.getElementById('subgrade{{activity.id}}{{forloop.counter}}').value;
+	    var weight = {{subactivity.subgrade_weight}};
+	    var diff = (val - grade) * weight;
+	    var activgrade = document.getElementById("grade{{activity.id}}").value;
+	    var total = (activgrade - diff * -1);
+	    document.getElementById("subgrade{{activity.id}}{{forloop.counter}}").value=val;
+	    $("#slider{{activity.id}}").slider("value", total);
+	 }});
+    {% endfor %}
+  {% endfor %}
 
 
   $('#slidertotal').slider({stop:function(event, ui){
 	var total = getTotal();
 	var diff = ui.value-total;
 	{% for activity in course.graded_activities_set.all %}
-		var temp = $('#slider{{forloop.counter}}').slider("option", "value");
-		$('#slider{{forloop.counter}}').slider("value", temp+diff); 
+		var temp = $('#slider{{activity.id}}').slider("option", "value");
+		$('#slider{{activity.id}}').slider("value", temp+diff); 
 	{% endfor %}
         var val = $('#slidertotal').slider("option", "value");
         document.getElementById("totalgrade").value=val;
