@@ -45,7 +45,8 @@ def index(request):
     service = build('calendar', 'v3', http=http)
 
   try:
-    print "Success! Now add code here."
+    calendar = service.calendars().get(calendarId='primary').execute()
+    print calendar['summary']
 
   except client.AccessTokenRefreshError:
     print ("The credentials have been revoked or expired, please re-run the application to re-authorize")
