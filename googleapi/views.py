@@ -35,7 +35,6 @@ def index(request):
     FLOW.params['state'] = xsrfutil.generate_token(settings.SECRET_KEY,
                                                    request.user)
     authorize_url = FLOW.step1_get_authorize_url()
-    print authorize_url
     return HttpResponseRedirect(authorize_url)
   else:
     http = httplib2.Http()
@@ -59,4 +58,4 @@ def auth_return(request):
   credential = FLOW.step2_exchange(request.REQUEST)
   storage = Storage(CredentialsModel, 'id', request.user, 'credential')
   storage.put(credential)
-  return HttpResponseRedirect("/")
+  return HttpResponseRedirect("/goog")
