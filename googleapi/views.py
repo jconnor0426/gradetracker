@@ -43,8 +43,8 @@ def index(request):
     http = httplib2.Http()
     http = credential.authorize(http)
     service = build('calendar', 'v3', http=http)
+    calendar = service.events().list(calendarId='primary')
     print service
-    #calendar = service.calendars().get(calendarId='primary').execute()
     #print calendar['summary']
 
     #service = build("plus", "v1", http=http)
