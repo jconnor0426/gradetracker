@@ -56,7 +56,7 @@
       <strong>{{ activity.activity_name }}</strong>
     </td>
     <td>
-        <input type='checkbox' id='checks{{ forloop.counter }}' />
+        <input type='checkbox' id='check{{ activity.id }}' />
     </td>
     <td>
 	<div id="slider{{activity.id}}" style="width: 20em;"> </div>
@@ -72,7 +72,7 @@
 	      {{ subactivity.subactivity_name }}
 	    </td>
 	    <td>
-	        <input type='checkbox' id='check{{ activity.activity_name }}{{ forloop.counter }}' />
+	        <input type='checkbox' id='check{{ activity.id }}{{ forloop.counter }}' />
 	    </td>
 	    <td>
 	        <div id="subslider{{activity.id}}{{ forloop.counter }}" style="width: 20em;"> </div>
@@ -91,9 +91,6 @@
   <tr>
     <td width="15%">
       Total
-    </td>
-    <td>
-        <input type='checkbox' id='check1' />
     </td>
     <td class="total">
       <div id="slidertotal" > </div>
@@ -122,7 +119,6 @@
 	return total;
   }
 
-  
 $(function() {
     {% for activity in course.graded_activities_set.all %}
       $( '#slider{{activity.id}}' ).slider({ min:0.0, max:1.0, step:.01, value : {{activity.grade_earned}}});
@@ -142,18 +138,28 @@ $('document').ready(function(){
   	  var valtop = $('#slider{{ activity.id }}').slider("option", "value");
 	  var gradetop = document.getElementById("grade{{ activity.id }}").value;
 	  document.getElementById("grade{{ activity.id }}").value=valtop;
+	  var diff = gradetop - valtop;
 
 	  {% for subactivity in activity.subgraded_activities_set.all %}
-	    var gradesub =  document.getElementById("subgrade{{activity.id}}{{forloop.counter}}").value;
-	    var diff = (valtop - gradetop);
-	    var weight = {{subactivity.subgrade_weight}};
-	    var a = diff * weight;
-	    var b = a * (1/weight);
-	    var subval = document.getElementById('subgrade{{activity.id}}{{forloop.counter}}').value;
-	    var subtotal = subval - b;
-	    $(subslider{{activity.id}}{{forloop.counter}}).slider("value", subtotal);
-	    document.getElementById('subgrade{{activity.id}}{{forloop.counter}}').value=subslider;
-	  {% endfor %}
+	    if (!(document.getElementById('check{{activity.id}}{{forloop.counter}}').checked)){
+              var subactivval = document.getElementById("subgrade{{ activity.id }}{{forloop.counter}}").value;
+	      
+	      // Set multiplier for decreasing or increasing subactivities
+	      if (diff > 0){
+	        var multiplier = subactivval / gradetop;
+	      } else{
+		var multiplier = gradetop / subactivval;
+	      }
+              var subdiff = diff * multiplier;
+              var subtotal = subactivval - subdiff;
+	      if (subtotal <= 0){
+		subtotal = .01;
+	      }
+              $('#subslider{{activity.id}}{{forloop.counter}}').slider("value", subtotal);
+              var subval = $('#subslider{{activity.id}}{{forloop.counter}}').slider("option", "value");
+              document.getElementById("subgrade{{ activity.id }}{{forloop.counter}}").value=subval;
+	    }
+          {% endfor %}
 
           var valtotal = $('#slidertotal').slider("option", "value");
           document.getElementById("totalgrade").value=valtotal;
@@ -169,8 +175,16 @@ $('document').ready(function(){
 	    var diff = (val - grade) * weight;
 	    var activgrade = document.getElementById("grade{{activity.id}}").value;
 	    var total = (activgrade - diff * -1);
+	    if (total <= 0){
+	      total = .01;
+	    }
+	    if (val <= 0){
+	      val = .01;
+	    }
 	    document.getElementById("subgrade{{activity.id}}{{forloop.counter}}").value=val;
+	  if (!(document.getElementById("check{{activity.id}}").checked)){
 	    $("#slider{{activity.id}}").slider("value", total);
+	  }
 	 }});
     {% endfor %}
   {% endfor %}
