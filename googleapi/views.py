@@ -106,10 +106,10 @@ def createEvent( service, date, name ):
   event = {
     'summary': name,
     'start': {
-      'dateTime': str(date)
+      'date': str(date)
     },
     'end': {
-      'dateTime': str(date)
+      'date': str(date)
     }
   }
   created_event = service.events().insert(calendarId='primary', body=event).execute()
