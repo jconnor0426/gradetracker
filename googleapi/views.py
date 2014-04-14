@@ -68,7 +68,7 @@ def index(request):
       if  each.grade_due_date:
         activitylist.append( ( each.activity_name, each.grade_due_date ) )
 
-    #build activities to export
+    #build subactivities to export
     export_list = []
     for course in student.course_set.all():
       for activity in course.graded_activities_set.all():
@@ -79,9 +79,12 @@ def index(request):
       if  each.subgrade_due_date:
         activitylist.append( ( each.subactivity_name, each.subgrade_due_date ) )
 
+    for each in activitylist:
+      try:
+        createEvent( service, each[1], each[0] )
+      except:
+        pass
 
-
-    
     #activitylist = calendar[ 'summary' ]
 
 
@@ -97,3 +100,16 @@ def auth_return(request):
   storage = Storage(CredentialsModel, 'id', request.user, 'credential')
   storage.put(credential)
   return HttpResponseRedirect("/goog")
+
+
+def createEvent( service, date, name ):
+  event = {
+    'summary': name,
+    'start': {
+      'dateTime': str(date)
+    },
+    'end': {
+      'dateTime': str(date)
+    }
+  }
+  created_event = service.events().insert(calendarId='primary', body=event).execute()
