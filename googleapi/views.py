@@ -57,7 +57,8 @@ def index(request):
     #activitylist = activities.list(collection='public',
      #                              userId='me').execute()
     #logging.info(activitylist)
-    activitylist = calendar
+    activitylist = calendar[ 'summary' ]
+
 
   return render_to_response('plus/welcome.html', {"activitylist":activitylist} )
 
