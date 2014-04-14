@@ -61,8 +61,17 @@ def index(request):
     #logging.info(activitylist)
 
     #Now do the real calendar work
-    calendar = service.calendars().get(calendarId='GradeTracker').execute()
+    #see if the user has our calendar
+    try:
+      calendar = service.calendars().get(calendarId='GradeTracker').execute()
+    except:
+      calendar = {
+      'summary': 'GradeTracker',
+      'timeZone': 'America/New_York'
+      }
 
+      calendar = service.calendars().insert(body=calendar).execute()
+    
     activitylist = calendar[ 'summary' ]
 
 
