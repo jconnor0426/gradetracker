@@ -64,6 +64,12 @@ def index(request):
       for activity in course.graded_activities_set.all():
         export_list.append( activity )
 
+    #Make Sure that all activities have a due date
+    for each in export_list:
+      if not each.grade_due_date:
+        export_list.remove( each )
+
+    
     activitylist = export_list
 
     
