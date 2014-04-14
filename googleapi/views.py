@@ -82,8 +82,8 @@ def index(request):
     for each in activitylist:
       try:
         createEvent( service, each[1], each[0] )
-      except:
-        pass
+      except Exception as e:
+        print e
 
     #activitylist = calendar[ 'summary' ]
 
