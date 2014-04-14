@@ -41,6 +41,8 @@ def index(request):
     http = httplib2.Http()
     http = credential.authorize(http)
     service = build('calendar', 'v3', http=http)
+
+    #See if general calendar stuff will work. If it doesn't than we need to reauth
     try:
       calendar = service.events().list(calendarId='primary').execute()
     except:
@@ -57,6 +59,10 @@ def index(request):
     #activitylist = activities.list(collection='public',
      #                              userId='me').execute()
     #logging.info(activitylist)
+
+    #Now do the real calendar work
+    calendar = service.calendars().get(calendarId='GradeTracker').execute()
+
     activitylist = calendar[ 'summary' ]
 
 
