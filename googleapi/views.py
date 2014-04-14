@@ -54,23 +54,32 @@ def index(request):
       return HttpResponseRedirect(authorize_url)
 
     #Now do the real calendar work
-
-    #Get a user's activities:
+    activitylist = []
+    #Get a student from the user :
     student = Student.objects.filter( user=request.user ) [0]
 
-    #build events to export
+    #build activities to export
     export_list = []
     for course in student.course_set.all():
       for activity in course.graded_activities_set.all():
         export_list.append( activity )
-
     #Make Sure that all activities have a due date
     for each in export_list:
-      if not each.grade_due_date:
-        export_list.remove( each )
+      if  each.grade_due_date:
+        activitylist.append( ( each.activity_name, each.grade_due_date ) )
 
-    
-    activitylist = export_list
+    #build activities to export
+    export_list = []
+    for course in student.course_set.all():
+      for activity in course.graded_activities_set.all():
+        for sub in activity.subgraded_activities_set.all():
+          export_list.append( sub )
+    #Make Sure that all activities have a due date
+    for each in export_list:
+      if  each.subgrade_due_date:
+        activitylist.append( ( each.subactivity_name, each.subgrade_due_date ) )
+
+
 
     
     #activitylist = calendar[ 'summary' ]
