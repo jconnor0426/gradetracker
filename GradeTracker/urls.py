@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     url(r'^$', views.welcome, name='welcome'),
     url(r'^index', views.index, name='index'),
 
+    url(r'^(?P<student_id>)/$', views.detail, name='detail'),
     url(r'^(?P<student_id>\d+)/$', views.detail, name='detail'),
     url(r'^(?P<student_id>\d+)/account$', views.account, name='account'),
     url(r'^(?P<student_id>\d+)/accountedit$', views.editAccount, name='ediAccount'),
@@ -26,7 +27,7 @@ urlpatterns = patterns('',
     url(r'^deletesubactivity/(?P<subactivity_id>\d+)/$', views.deleteSubGradedActivity, name='edit-activity'),    
 
     #What-If Page
-    url(r'^whatIf/(?P<course_id>\d+)/$', views.whatIfView, name="whatIfView"),
+    url(r'^whatIf/(?P<student_id>\d+)/(?P<course_id>\d+)/$', views.whatIfView, name="whatIfView"),
 
     url(r'^(?P<student_id>\d+)/test/$', views.test, name='test'),
 
