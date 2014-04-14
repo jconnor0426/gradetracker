@@ -15,6 +15,8 @@ from oauth2client import xsrfutil
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.django_orm import Storage
 
+from GradeTracker.models import Student, Course, Graded_Activities, SubGraded_Activities, Templates
+
 # CLIENT_SECRETS, name of a file containing the OAuth 2.0 information for this
 # application, including client_id and client_secret, which are found
 # on the API Access tab on the Google APIs
@@ -51,28 +53,21 @@ def index(request):
       authorize_url = FLOW.step1_get_authorize_url()
       return HttpResponseRedirect(authorize_url)
 
-
-    #print calendar['summary']
-
-    #service = build("plus", "v1", http=http)
-    #activities = service.activities()
-    #activitylist = activities.list(collection='public',
-     #                              userId='me').execute()
-    #logging.info(activitylist)
-
     #Now do the real calendar work
-    #see if the user has our calendar
-    try:
-      calendar = service.calendars().get(calendarId='GradeTracker').execute()
-    except:
-      calendar = {
-      'summary': 'GradeTracker',
-      'timeZone': 'America/New_York'
-      }
 
-      calendar = service.calendars().insert(body=calendar).execute()
+    #Get a user's activities:
+    student = Student.object.filter( user=request.user ) 
+
+    #build events to export
+    export_list = []
+    for course in student.course_set.all():
+      for activity in course.graded_activities_set.all():
+        export_list.append( activity )
+
+    activitylist = export_list
+
     
-    activitylist = calendar[ 'summary' ]
+    #activitylist = calendar[ 'summary' ]
 
 
   return render_to_response('plus/welcome.html', {"activitylist":activitylist} )
