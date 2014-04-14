@@ -8,9 +8,10 @@ from GradeTracker.forms import courseAdd, activityAdd, activityEdit, subactivity
 from django.contrib.auth.decorators import login_required
 
 @login_required
-def whatIfView(request, course_id):
+def whatIfView(request, student_id, course_id):
+	student = get_object_or_404( Student, pk=student_id )
         course = get_object_or_404( Course, pk=course_id )	
         course_grade = 0
         for each in course.graded_activities_set.all():
                 course_grade = course_grade + ( each.grade_weight * each.grade_earned )
-        return render(request, 'GradeTracker/whatIfPage.html', { 'course':course, 'sum': course_grade } )
+        return render(request, 'GradeTracker/whatIfPage.html', { 'course':course, 'sum': course_grade, 'student': student } )

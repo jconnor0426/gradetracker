@@ -2,10 +2,16 @@
 
 {% load static %}
 
+        {% block menubar %}
+          <li><a href="/GT/{{ student.id }}/">Class</a></li>
+          <li><a href="/GT/{{ student.id }}/account">Account Info</a></li>
+          <li><a href="/GT/{{ student.id }}/accountedit">Edit Account</a></li>
+          <li><a href="/GT/accounts/logout">Logout</a></li>
+
+        {% endblock %}
 
 {% block content %}
 <body>
-	
 	<h1>Activities for {{ course.course_name }}</h1>
 	<table style="display: inline-block, float:right">
       <tr> 
