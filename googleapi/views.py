@@ -56,7 +56,7 @@ def index(request):
     #Now do the real calendar work
 
     #Get a user's activities:
-    student = Student.objects.filter( user=request.user ) 
+    student = Student.objects.filter( user=request.user ) [0]
 
     #build events to export
     export_list = []
