@@ -34,11 +34,12 @@ class subactivityEdit( ModelForm):
 class activityAdd(forms.Form):
     activityName = forms.CharField(max_length=200)
     activityWeight = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
+    activity_Grade_Earned = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)], required=False)
 
 class subactivityAdd(forms.Form):
     subactivity_Name = forms.CharField(max_length=200)
     subactivity_Weight = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
-    subactivity_Grade_Earned = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
+    subactivity_Grade_Earned = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)], required=False)
 
 class templateSearch(forms.Form):
     courseCode = forms.CharField(max_length=200)

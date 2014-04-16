@@ -1,11 +1,9 @@
 {% extends "GradeTracker/basepage.html" %}
+
 {% block menubar %}
-          <li><a href="/GT/">Home</a></li>
-          <!-  Am only referencing list object 0, need to reference whatever student
-          name is clicked -->
-          <li><a href="/GT/{{ student.id }}/">Classes</a></li>
-          <li><a href="page.html">A Page</a></li>
-          <li><a href="another_page.html">Another Page</a></li>
+          <li><a href="/GT/{{ student.id }}/">Class</a></li>
+          <li><a href="/GT/{{ student.id }}/account">Account Info</a></li>
+          <li><a href="/GT/{{ student.id }}/accountedit">Edit Account</a></li>
           <li><a href="/GT/accounts/logout">Logout</a></li>
 {% endblock %}
 
@@ -18,6 +16,9 @@
 	<ul>
 		<li>
 			<h4>Weight: {{ activity.grade_weight }}</h4>
+		</li>
+		<li>
+			<h4>Grade: {{ activity.grade_earned }}</h4>
 		</li>
       		<li>
         		<a href="/GT/editactivity/{{activity.id}}" >Edit Activity </a>

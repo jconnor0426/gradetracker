@@ -15,8 +15,9 @@
 	<h1>Activities for {{ course.course_name }}</h1>
 	<table style="display: inline-block, float:right">
       <tr> 
-            <td>Activity</td>
+            <td>Activities</td>
             <td>Activity Weight </td>
+	    <td>Grade Entered</td>
       </tr> 
       {% for activity in course.graded_activities_set.all %}
 	<tr>
@@ -24,6 +25,10 @@
 		<td>
 			<input type="number" name="{{activity.activity_name}}-weight" min="0" max="1"
 				value="{{ activity.grade_weight }}" step=".05" readonly/>
+		</td>
+		<td>    
+			<input type="number" name="{{activity.activity_name}}-weight" min="0" max="1"
+                                value="{{ activity.grade_earned }}" step=".05" readonly/>
 		</td>
 	</tr>
 
@@ -33,8 +38,9 @@
 	{% for activity in course.graded_activities_set.all %}
 	<table style="display: inline-block">
 		<tr>
-			<td>{{ activity.activity_name }} SubActivity</td>
-			<td>Activity Weight</td>
+			<td>{{ activity.activity_name }}'s SubActivities</td>
+			<td>Subactivity Weight</td>
+			<td>Grade Entered</td>
 		</tr>
 		{% for subactivity in activity.subgraded_activities_set.all %}
 		<tr>
@@ -44,10 +50,15 @@
 				name="{{subactivity.subactivity_name}}-weight" min="0" max="1" 
 				value="{{ subactivity.subgrade_weight }}" step=".05" readonly/>
 	                </td>
+	                <td>
+        	                <input type="number" name="{{subactivity.subactivity_name}}-weight" min="0" max="1"
+                	                value="{{ subactivity.subgrade_earned }}" step=".05" readonly/>
+                	</td>
 		</tr>
 		{% empty %}
 		<tr>
 			<td>None</td>
+			<td><input type="text" name="" value="N/A" readonly/></td>
 			<td><input type="text" name="" value="N/A" readonly/></td>
 		</tr>
 		{% endfor %}
@@ -152,14 +163,22 @@ $('document').ready(function(){
 	      
 	      // Set multiplier for decreasing or increasing subactivities
 	      if (diff > 0){
-	        var multiplier = subactivval / gradetop;
+	        var multiplier = (subactivval / gradetop);
 	      } else{
-		var multiplier = gradetop / subactivval;
+		if (subactivval > .03){
+			var multiplier = (gradetop / subactivval);
+		}
+		else{
+			var multiplier = 1;
+		}
 	      }
               var subdiff = diff * multiplier;
               var subtotal = subactivval - subdiff;
 	      if (subtotal <= 0){
 		subtotal = .01;
+	      }
+	      if (valtop >= .96 && subtotal < valtop){
+		subtotal = valtop;
 	      }
               $('#subslider{{activity.id}}{{forloop.counter}}').slider("value", subtotal);
               var subval = $('#subslider{{activity.id}}{{forloop.counter}}').slider("option", "value");
