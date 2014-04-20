@@ -12,6 +12,9 @@ urlpatterns = patterns('',
     url(r'^(?P<student_id>\d+)/account$', views.account, name='account'),
     url(r'^(?P<student_id>\d+)/accountedit$', views.editAccount, name='ediAccount'),
 
+    #About us
+    url(r'^about/$', views.about, name='about'),
+
     #Course pages 
     url(r'^(?P<student_id>\d+)/(?P<course_id>\d+)/$', views.grades, name='grades'),
     url(r'^deleteCourse/(?P<course_id>\d+)/$', views.deleteCourse, name='delete-course'),
@@ -30,9 +33,6 @@ urlpatterns = patterns('',
     url(r'^whatIf/(?P<student_id>\d+)/(?P<course_id>\d+)/$', views.whatIfView, name="whatIfView"),
 
     url(r'^(?P<student_id>\d+)/test/$', views.test, name='test'),
-
-    #Google Services 
-    url(r'^google/$', views.googleTest, name="googleTest"),
 
     #Templating System
     url(r'^searchtemplate/$', views.searchTemplateView, name="searchTemplate"),

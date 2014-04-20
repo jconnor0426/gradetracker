@@ -28,7 +28,8 @@ from GradeTracker.whatIfView import whatIfView
 from GradeTracker.courseTemplatesView import searchTemplateView, addTemplateView
 #from GradeTracker.testServices import googleTest
 
-
+#About page
+from GradeTracker.aboutView import about
 
 def test(request, student_id):
     course_list = Course.objects.filter(student=student_id)
