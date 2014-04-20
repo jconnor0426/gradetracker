@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from GradeTracker.models import Student, Course, Graded_Activities, SubGraded_Activities, Templates
 from datetime import date, timedelta
+import random
 
 
 sampleClasses = [ 	("Course1", "COP101"),
