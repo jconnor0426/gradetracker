@@ -23,10 +23,10 @@ def populate():
 
 	for first, last in zip( first_names, last_names ):
 		#Create the users
-		user = User.objects.create_user( first, 'email@email.com', 'password')
-		user.last_name = last
-		user.institution = "FSU"
-		user.save()
+		new_user = User.objects.create_user( first, 'email@email.com', 'password')
+		new_user.last_name = last
+		new_user.institution = "FSU"
+		new_user.save()
 		new_student = Student( user=new_user, fName=new_user.first_name, lName=new_user.last_name, Institution=new_user.institution )  
 		new_student.save()
 
