@@ -4,7 +4,8 @@ from GradeTracker.models import Student, Course, Graded_Activities, SubGraded_Ac
 
 def populate():
 	#Build the list of data to populate
-	print Student.objects.all()
+	first_names = open( "actor-givenname", "R" ).readlines()
+	print first_names
 
 
 	#For each in the list do this:
