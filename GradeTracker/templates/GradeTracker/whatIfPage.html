@@ -219,8 +219,10 @@ $('document').ready(function(){
 	var total = getTotal();
 	var diff = ui.value-total;
 	{% for activity in course.graded_activities_set.all %}
+	   if (!(document.getElementById("check{{activity.id}}").checked)){
 		var temp = $('#slider{{activity.id}}').slider("option", "value");
 		$('#slider{{activity.id}}').slider("value", temp+diff); 
+	   }
 	{% endfor %}
         var val = $('#slidertotal').slider("option", "value");
         document.getElementById("totalgrade").value=val;
