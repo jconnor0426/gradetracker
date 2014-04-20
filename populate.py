@@ -34,21 +34,24 @@ def populate():
 
 			#Add some classes
 			#loop through and create class 1, 2, 3, 4
-			for course in sampleClasses:
-				new_course = new_student.course_set.create( course_name = course[0] , course_code =course[1]  )
-				#Add activities to each class
-				#add activity 1, 2, 3, with random grades, weights, and all due Random Days in May
-				for activity in sample_activities:
-					new_activity = new_course.graded_activities_set.create( 	activity_name = activity , 
-													grade_weight = random.random(), 
-													grade_earned=random.random(),
-													grade_due_date = date.today + timedelta( days=random.randint(1,50) )  )
-					#for each new activity add some subactivities
-					for subactivity in sample_subactivities:
-						new_activity.subgraded_activities_set.create( 	activity_name = subactivity , 
-												subgrade_weight = random.random(), 
-												subgrade_earned=random.random(),
-												subgrade_due_date = date.today + timedelta( days=random.randint(1,50) )  )
+			try:
+				for course in sampleClasses:
+					new_course = new_student.course_set.create( course_name = course[0] , course_code =course[1]  )
+					#Add activities to each class
+					#add activity 1, 2, 3, with random grades, weights, and all due Random Days in May
+					for activity in sample_activities:
+						new_activity = new_course.graded_activities_set.create( 	activity_name = activity , 
+														grade_weight = random.random(), 
+														grade_earned=random.random(),
+														grade_due_date = date.today + timedelta( days=random.randint(1,50) )  )
+						#for each new activity add some subactivities
+						for subactivity in sample_subactivities:
+							new_activity.subgraded_activities_set.create( 	activity_name = subactivity , 
+													subgrade_weight = random.random(), 
+													subgrade_earned=random.random(),
+													subgrade_due_date = date.today + timedelta( days=random.randint(1,50) )  )
+			except Exception as e:
+				print e
 		except:
 			pass		
 
