@@ -5,7 +5,7 @@ from GradeTracker.models import Student, Course, Graded_Activities, SubGraded_Ac
 def populate():
 	#Build the list of data to populate
 	first_names = [line.rstrip() for line in open('actor-givenname')]
-	first_names = [line.rstrip() for line in open('actor-surname')][:len(first_names) ]
+	last_names = [line.rstrip() for line in open('actor-surname')][:len(first_names) ]
 
 	for a,b in zip( first_names, last_names ):
 		print a + '\t' + b
