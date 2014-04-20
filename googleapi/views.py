@@ -88,7 +88,7 @@ def index(request):
     #activitylist = calendar[ 'summary' ]
 
 
-  return render_to_response('plus/welcome.html', {"activitylist":activitylist} )
+  return render_to_response('plus/welcome.html', {"activitylist":activitylist}, 'student':Student.objects.filter( user=request.user)[0] )
 
 
 @login_required
