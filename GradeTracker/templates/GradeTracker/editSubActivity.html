@@ -1,11 +1,4 @@
-{% extends "GradeTracker/basepage.html" %}
-
-{% block menubar %}
-          <li><a href="/GT/{{ student.id }}/">Class</a></li>
-          <li><a href="/GT/{{ student.id }}/account">Account Info</a></li>
-          <li><a href="/GT/{{ student.id }}/accountedit">Edit Account</a></li>
-          <li><a href="/GT/accounts/logout">Logout</a></li>
-{% endblock %}
+{% extends "GradeTracker/li_basepage.html" %}
 
 {% block content %}
 <form action="/GT/editsubactivity/{{ subactivity.id }}/" method="post">{% csrf_token %}
