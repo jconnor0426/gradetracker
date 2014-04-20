@@ -1,14 +1,8 @@
-{% extends "GradeTracker/basepage.html" %}
+{% extends "GradeTracker/li_basepage.html" %}
 
 {% load static %}
 
-        {% block menubar %}
-          <li><a href="/GT/{{ student.id }}/">Class</a></li>
-          <li><a href="/GT/{{ student.id }}/account">Account Info</a></li>
-          <li><a href="/GT/{{ student.id }}/accountedit">Edit Account</a></li>
-          <li><a href="/GT/accounts/logout">Logout</a></li>
 
-        {% endblock %}
 
 {% block content %}
 <body>
