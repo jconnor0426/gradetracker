@@ -4,7 +4,7 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 #cross-site request forgery --> method for people hacking into website
 from GradeTracker.models import User, Student, Course, Graded_Activities, SubGraded_Activities, Templates
-from GradeTracker.forms import userEdit, studentEdit, courseAdd, activityAdd, subactivityAdd, MyRegistrationForm
+from GradeTracker.forms import userEdit, studentEdit, courseAdd, activityAdd, subactivityAdd, MyRegistrationForm, passwordForm
 
 def account(request, student_id):
     user = User.objects.get(id=request.user.id)
@@ -16,9 +16,11 @@ def editAccount(request, student_id):
     user = User.objects.get(id=request.user.id)
 
     if request.method == 'POST':
+        passForm = passwordForm( request.POST )
         userForm = userEdit(request.POST, instance=user)
         studentForm = studentEdit(request.POST, instance=student)
-        if userForm.is_valid() and studentForm.is_valid():
+        if userForm.is_valid() and studentForm.is_valid() and passForm.is_valid():
+            user.set_password( passForm.cleaned_data['password']  ) 
             userForm.save()
             studentForm.save()
             user.save()

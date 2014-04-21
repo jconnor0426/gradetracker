@@ -4,16 +4,16 @@ from datetime import date, timedelta
 import random
 
 
-sampleClasses = [ 	("Course1", "COP101"),
-			("Course2", "COP102"), 
-			("Course3", "COP103"),
-			("Course4", "COP104") ]
+sampleClasses 		= [ 	("Course1", "COP101"),
+				("Course2", "COP102"), 
+				("Course3", "COP103"),
+				("Course4", "COP104") ]
 
-sample_activities = [ 	"Activity1",
-			"Activity2",
-			"Activity3" ]
+sample_activities 	= [ 	"Activity1",
+				"Activity2",
+				"Activity3" ]
 
-sample_subactivities = [ 	"SubActivity1",
+sample_subactivities 	= [ 	"SubActivity1",
 				"SubActivity2",
 				"SubActivity3"]
 
@@ -54,5 +54,3 @@ def populate():
 				print e
 		except:
 			pass		
-
-

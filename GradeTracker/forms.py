@@ -10,7 +10,10 @@ class userEdit(ModelForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name',
-        'last_name', 'password')
+        'last_name')
+
+class passwordForm(forms.Form):
+    password = forms.CharField(widget=forms.PasswordInput())
 
 class studentEdit(ModelForm):
     class Meta:
