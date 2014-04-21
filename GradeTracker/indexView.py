@@ -13,4 +13,3 @@ def index(request):
         return render (request, 'GradeTracker/index.html', context)
     else: 
         return render(request, 'GradeTracker/login.html')
-
