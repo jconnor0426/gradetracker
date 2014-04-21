@@ -4,6 +4,7 @@
 <form action="/GT/{{ student.id }}/accountedit" method="post">{% csrf_token %}
 {{ userForm.as_p }}
 {{ studentForm.as_p }}
+{{ passForm.as_p }}
 <input type="submit" value="Submit" />
 </form>
 {% endblock %}

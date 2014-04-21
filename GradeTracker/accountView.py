@@ -28,4 +28,5 @@ def editAccount(request, student_id):
     else:
         userForm = userEdit(instance=user)
         studentForm = studentEdit(instance=student)
-    return render(request, 'GradeTracker/account.html', {'userForm':userForm, 'studentForm':studentForm, 'user':user, 'student':student} )
+        passForm = passwordForm()
+    return render(request, 'GradeTracker/account.html', {'passForm':passForm, 'userForm':userForm, 'studentForm':studentForm, 'user':user, 'student':student} )
