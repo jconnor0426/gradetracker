@@ -21,6 +21,7 @@ def editAccount(request, student_id):
         if userForm.is_valid() and studentForm.is_valid():
             userForm.save()
             studentForm.save()
+            user.save()
             return HttpResponseRedirect('/GT/' + str(student_id) + '/account')
     else:
         userForm = userEdit(instance=user)

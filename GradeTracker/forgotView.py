@@ -17,9 +17,9 @@ def forgot(request):
             # Process the data in form.cleaned_data
             user = User.objects.filter(email=email)[0]
             if user is not None:
-                form.save()
                 new_password = str(id_generator())
 		user.set_password(new_password)
+                user.save()
                 send_mail("Your PW", new_password, "admin@GradeTracker.com", [email])
                 return HttpResponseRedirect('/GT/' + "validEmail")
             else:
