@@ -1,0 +1,15 @@
+{% extends "GradeTracker/basepage.html" %}
+
+{% block menubar %}
+          <li><a href="/GT/accounts/login">Login</a></li>
+{% endblock %}
+
+
+{% block content %}
+
+<form action="/GT/forgot/" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+
+{% endblock %}

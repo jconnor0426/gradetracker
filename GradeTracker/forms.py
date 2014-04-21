@@ -49,8 +49,11 @@ class templateSearch(forms.Form):
     courseCode = forms.CharField(max_length=200)
 
 #Forgot password
-class forgotPassword(forms.Form):
-    email = forms.EmailField()
+class forgotPassword(ModelForm):
+    class Meta:
+        model = User
+        fields = ('email',)
+        email = forms.EmailField()
 
 #UserCreationForm already created in auth directory
 class MyRegistrationForm(UserCreationForm):
