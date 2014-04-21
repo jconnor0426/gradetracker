@@ -4,6 +4,7 @@ from GradeTracker.models import Student, Course, Graded_Activities, SubGraded_Ac
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 from django.core.validators import MaxValueValidator, MinValueValidator
+import datetime
 
 class userEdit(ModelForm):
     class Meta:
@@ -35,14 +36,21 @@ class activityAdd(forms.Form):
     activityName = forms.CharField(max_length=200)
     activityWeight = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
     activity_Grade_Earned = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)], required=False)
+    activity_due_date = forms.DateField(initial=datetime.date.today)
 
 class subactivityAdd(forms.Form):
     subactivity_Name = forms.CharField(max_length=200)
     subactivity_Weight = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)])
     subactivity_Grade_Earned = forms.FloatField(validators = [MinValueValidator(0.00), MaxValueValidator(1.00)], required=False)
+    subactivity_due_date = forms.DateField(initial=datetime.date.today)
+
 
 class templateSearch(forms.Form):
     courseCode = forms.CharField(max_length=200)
+
+#Forgot password
+class forgotPassword(forms.Form):
+    email = forms.EmailField()
 
 #UserCreationForm already created in auth directory
 class MyRegistrationForm(UserCreationForm):

@@ -15,6 +15,10 @@ urlpatterns = patterns('',
     #About us
     url(r'^about/$', views.about, name='about'),
 
+    #Forgot password
+    url(r'^forgot/$', views.forgot, name='forgot'),
+    url(r'^validEmail/$', views.validEmail, name='validEmail'),
+
     #Course pages 
     url(r'^(?P<student_id>\d+)/(?P<course_id>\d+)/$', views.grades, name='grades'),
     url(r'^deleteCourse/(?P<course_id>\d+)/$', views.deleteCourse, name='delete-course'),

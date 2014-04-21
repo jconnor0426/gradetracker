@@ -14,7 +14,7 @@ def grades(request, student_id, course_id):
         form = activityAdd(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
-            course.graded_activities_set.create( activity_name = form.cleaned_data['activityName'], grade_weight = form.cleaned_data['activityWeight'], grade_earned=form.cleaned_data['activity_Grade_Earned'] )
+            course.graded_activities_set.create( activity_name = form.cleaned_data['activityName'], grade_weight = form.cleaned_data['activityWeight'], grade_earned=form.cleaned_data['activity_Grade_Earned'], grade_due_date = form.cleaned_data['activity_due_date'] )
             return HttpResponseRedirect('/GT/' + str(student_id) + "/" + str(course_id)) # Redirect after POST
     else:
         form = activityAdd()

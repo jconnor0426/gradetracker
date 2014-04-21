@@ -17,7 +17,8 @@ def addSub(request, student_id, course_id, graded_activity_id ):
             form = subactivityAdd(request.POST)
             if form.is_valid():
                 activity.subgraded_activities_set.create( subactivity_name = form.cleaned_data['subactivity_Name'], subgrade_weight = form.cleaned_data['subactivity_Weight'],\
-			 subgrade_earned = form.cleaned_data['subactivity_Grade_Earned'] )
+			 subgrade_earned = form.cleaned_data['subactivity_Grade_Earned'], subgrade_due_date = form.cleaned_data\
+			 ['subactivity_due_date'])
                 return HttpResponseRedirect('/GT/' + str(student.id) +'/' + str(activity.course.id)  + '/' + str(activity.id))
         else:
             form = subactivityAdd()

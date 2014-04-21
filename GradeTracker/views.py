@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 #cross-site request forgery --> method for people hacking into website
 from GradeTracker.models import Student, Course, Graded_Activities, SubGraded_Activities, Templates
-from GradeTracker.forms import courseAdd, activityAdd, subactivityAdd, MyRegistrationForm
+from GradeTracker.forms import courseAdd, activityAdd, subactivityAdd, MyRegistrationForm, forgotPassword
 
 
 
@@ -30,6 +30,10 @@ from GradeTracker.courseTemplatesView import searchTemplateView, addTemplateView
 
 #About page
 from GradeTracker.aboutView import about
+
+#Forgot password page
+from GradeTracker.forgotView import forgot
+from GradeTracker.validEmailView import validEmail
 
 def test(request, student_id):
     course_list = Course.objects.filter(student=student_id)
