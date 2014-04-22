@@ -20,8 +20,6 @@ def editAccount(request, student_id):
         userForm = userEdit(request.POST, instance=user)
         studentForm = studentEdit(request.POST, instance=student)
         if userForm.is_valid() and studentForm.is_valid() and passForm.is_valid():
-            print user
-            print passForm.cleaned_data['password' ]
             user.set_password( passForm.cleaned_data['password']  ) 
             userForm.save()
             studentForm.save()
