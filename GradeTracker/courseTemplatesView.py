@@ -18,10 +18,10 @@ def searchTemplateView( request ):
 			searchCode =  form.cleaned_data['courseCode']
 			results = Course.objects.filter( course_code=searchCode )
 			form = templateSearch()
-			return render(request, 'GradeTracker/searchTemplates.html', {'results': results  , 'form': form , 'results_page':"yes" })
+			return render(request, 'GradeTracker/searchTemplates.html', {'student':Student.objects.get( user=request.user), 'results': results  , 'form': form , 'results_page':"yes" })
 	else:
 		form = templateSearch()
-		return render(request, 'GradeTracker/searchTemplates.html', {'results': results  , 'form': form, 'student':Student.objects.filter( user=request.user)[0] })
+		return render(request, 'GradeTracker/searchTemplates.html', {'results': results  , 'form': form, 'student':Student.objects.get( user=request.user) })
 
 @login_required
 def addTemplateView( request, course_id ):
